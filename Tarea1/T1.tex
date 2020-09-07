@@ -1,0 +1,110 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref} % navega por el doc
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+
+\renewcommand{\spanishtablename}{Tabla}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 1}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 1 \\ Análisis de datos de la población - Sector Educación}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados} \\
+\vspace{0.5cm}
+\textnormal{Profesora: Dra. Satu Elisa Schaeffer}\\
+\vspace{0.5cm}
+\textnormal{Doctorado en Ingeniería de Sistemas}}
+\date{Septiembre 2020}
+\begin{figure}
+  \centering
+  \includegraphics[width=6 in]{FigModeloReporte/escudo}
+\end{figure}
+\maketitle
+
+%------------------------------------------------
+
+\section{Presentación de los datos}
+
+Para esta tarea se tomó una base de datos del INEGI \cite{Inegi}, la cual presenta un indicador de eficiencia del sistema educativo nacional: Tasa neta de matriculación por entidad federativa según nivel educativo durante el ciclo escolar 2018-2019. Dicha base de datos se editó en un archivo .dat, para manipular la información en el entorno R (Versión 4.0.2), dichos datos se muestran en la Figura \ref{f1}, en donde, cada renglón representa un estado de la República Mexicana y cada uno de los datos es la proporción de la matrícula total de un nivel educativo determinado (Preescolar, Primaria, Secundaria, Medio Superior), respecto a la población en edad oficial de cursar el nivel.\\
+
+Nótese que una mayor tasa bruta de escolarización para un nivel educativo se interpreta como una mayor asistencia a la escuela por parte de la población en las edades reglamentarias.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=3.3 in]{FigModeloReporte/f1.png}
+\caption{Base de datos de la tasa neta de matriculación}\label{f1}
+\end{center}
+\end{figure}
+
+\section{Análisis de los datos}
+
+Una forma de analizar la base de datos es mediante el uso de herramientas Estadísticas, por lo que calculamos un resumen estadístico (Figura \ref{f2}). En dicho resumen se puede observar que el nivel Primaria presenta el promedio más alto de matriculación en el país, y que los porcentajes más dispersos entre los estados de la República Mexicana parecieran presentarse en el nivel Medio Superior.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=4.5 in]{FigModeloReporte/f2.png}
+\caption{Resumen estadístico de la base de datos}\label{f2}
+\end{center}
+\end{figure}
+
+Se observa, además, que hay valores mayores al 100\%, esto se debe a que el indicador es sensible a la migración de la población \cite{Inegi}, ya que algunos alumnos se inscriben como nuevo ingreso en entidades federativas vecinas.
+
+\section{Diagrama de Caja y Bigotes}
+
+Una ayuda visual para examinar el resumen estadístico presentado anteriormente es mediante el uso de un diagrama de Caja y Bigotes, ya que nos permite visualizar fácilmente el comportamiento de la mediana, la media y los cuartiles cuando se tienen diferentes conjuntos de datos.\\
+
+En la Figura \ref{T1} podemos observar que durante el ciclo escolar 2018-2019 se presentó una mayor asistencia a la escuela en el nivel Primaria, mientras que el porcentaje de menor asistencia se encuentra en el nivel Medio Superior. Se observa una mayor variabilidad en los porcentajes del nivel Preescolar en comparación con los demás niveles. Algo curioso sucede con los datos del nivel Medio Superior, y sería interesante ver qué estados producen los datos atípicos, así, por ejemplo, la Secretaría de Educación Pública podría ver qué medidas tomó el estado con el valor más alto para poder implementar en los demás estados en ese nivel educativo.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=5 in]{FigModeloReporte/T1.png}
+\caption{Diagrama de Caja de la base de datos}\label{T1}
+\end{center}
+\end{figure}
+
+
+%------------------------------------------------
+
+\begin{thebibliography}{99}
+
+\bibitem{LenguajeR} R Core Team (2020). \textit{R: A language and environment for statistical computing}. R Foundation for Statistical Computing, Vienna, Austria. URL \url{https://www.R-project.org/}
+    
+\bibitem{Inegi} Instituto Nacional de Estadística y Geografía. Características educativas de la población. Recuperado el 5 de septiembre de 2020 de \url{https://www.inegi.org.mx/app/tabulados/interactivos/?px=Educacion_09&bd=Educacion}
+
+\end{thebibliography}
+
+\end{document}
