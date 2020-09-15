@@ -38,12 +38,12 @@
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \begin{document}
-\title{Tarea 2 \\ An·lisis de texto}
+\title{Tarea 2 \\ An√°lisis de texto}
 
 \author{
 \textbf{Erick Cervantes Mendieta} \\
 \vspace{0.5cm}
-\textnormal{MatrÌcula: 2032430}\\
+\textnormal{Matr√≠cula: 2032430}\\
 \textit{Modelos Probabilistas Aplicados}}
 \date{Septiembre 2020}
 
@@ -51,15 +51,15 @@
 
 %------------------------------------------------
 
-\section{PresentaciÛn de los datos}
+\section{Presentaci√≥n de los datos}
 
-Para esta tarea se analizÛ el libro titulado ``The Singing Mouse Stories", el cual se encuentra disponible de manera gratuita en el sitio Web: \emph{Project Gutenberg} \cite{Mouse}. Se utilizaron algunas tÈcnicas para an·lisis de texto, como lo es las frecuencias de las letras y de las palabras, ideal para identificar r·pidamente los temas comunes, y por otra parte, el agrupamiento de palabras, ya que a veces un grupo de palabras puede proporcionar una mejor perspectiva que una sola palabra.\\
+Para esta tarea se analiz√≥ el libro titulado ``The Singing Mouse Stories", el cual se encuentra disponible de manera gratuita en el sitio Web: \emph{Project Gutenberg} \cite{Mouse}. Se utilizaron algunas t√©cnicas para an√°lisis de texto, como lo es las frecuencias de las letras y de las palabras, ideal para identificar r√°pidamente los temas comunes, y por otra parte, el agrupamiento de palabras, ya que a veces un grupo de palabras puede proporcionar una mejor perspectiva que una sola palabra.\\
 
-En el cuadro \ref{t1} se pueden observar las cinco letras m·s utilizadas en el libro y en el cuadro \ref{t2}, se pueden observar las palabras m·s frecuentes en el texto.
+En el cuadro \ref{t1} se pueden observar las cinco letras m√°s utilizadas en el libro y en el cuadro \ref{t2}, se pueden observar las palabras m√°s frecuentes en el texto.
 
 \begin{table}[]
 \centering
-\caption{Letras m·s utilizadas en el libro}
+\caption{Letras m√°s utilizadas en el libro}
 \vspace{0.3 cm}
 \begin{tabular}{c|c}
  Letra & Frecuencia \\
@@ -75,7 +75,7 @@ En el cuadro \ref{t1} se pueden observar las cinco letras m·s utilizadas en el l
 
 \begin{table}[]
 \centering
-\caption{Palabras m·s utilizadas en el libro}
+\caption{Palabras m√°s utilizadas en el libro}
 \vspace{0.3 cm}
 \begin{tabular}{c|c}
  Letra & Frecuencia \\
@@ -89,11 +89,11 @@ En el cuadro \ref{t1} se pueden observar las cinco letras m·s utilizadas en el l
 \label{t2}
 \end{table}
 
-\section{An·lisis de los datos}
+\section{An√°lisis de los datos}
 
-Tanto las palabras como las letras utilizadas en la redacciÛn del libro fueron analizadas, en el sentido de que se pudieron ordenaran seg˙n la frecuencia con la que aparecieron, por otra parte, los dÌgitos como las preposiciones, los artÌculos y las conjunciones fueron excluidos(as) del an·lisis, ya que estos no aportaban gran informaciÛn.\\
+Tanto las palabras como las letras utilizadas en la redacci√≥n del libro fueron analizadas, en el sentido de que se pudieron ordenaran seg√∫n la frecuencia con la que aparecieron, por otra parte, los d√≠gitos como las preposiciones, los art√≠culos y las conjunciones fueron excluidos(as) del an√°lisis, ya que estos no aportaban gran informaci√≥n.\\
 
-La figura \ref{f1} muestra el n˙mero de veces que fueron utilizadas las letras del abecedario en el texto en orden descendente, en donde se puede  observar que la letra m·s utilizada fue la \textbf{e} y la menos utilizada fue la \textbf{x}. \\
+La figura \ref{f1} muestra el n√∫mero de veces que fueron utilizadas las letras del abecedario en el texto en orden descendente, en donde se puede  observar que la letra m√°s utilizada fue la \textbf{e} y la menos utilizada fue la \textbf{x}. \\
 
 \begin{figure}[]
 \begin{center}
@@ -102,25 +102,25 @@ La figura \ref{f1} muestra el n˙mero de veces que fueron utilizadas las letras d
 \end{center}
 \end{figure}
 
-En la figura \ref{f2} se pueden visualizar las palabras cuya frecuencia es mayor a cien, es decir, estas palabras aparecieron m·s de cien veces en el texto del libro, el listado es pequeÒo debido al tamaÒo del texto. Se observa que la palabra m·s utilizada fue el artÌculo \textbf{the}, seguida de la conjunciÛn \textbf{and}, y en tercer lugar la preposiciÛn \textbf{of}, estas palabras son conocidas como \emph{palabras huecas} \cite{mendoza2018}, ya que aportan poca informaciÛn sem·ntica. Afortunadamente el programa R (VersiÛn 4.0.2) \cite{LenguajeR} nos ofrece una herramienta para eliminar este tipo de palabras, lo que me permitiÛ poder obtener bigramas para poder extraer informaciÛn relevante del texto.\\
+En la figura \ref{f2} se pueden visualizar las palabras cuya frecuencia es mayor a cien, es decir, estas palabras aparecieron m√°s de cien veces en el texto del libro, el listado es peque√±o debido al tama√±o del texto. Se observa que la palabra m√°s utilizada fue el art√≠culo \textbf{the}, seguida de la conjunci√≥n \textbf{and}, y en tercer lugar la preposici√≥n \textbf{of}, estas palabras son conocidas como \emph{palabras huecas} \cite{mendoza2018}, ya que aportan poca informaci√≥n sem√°ntica. Afortunadamente el programa R (Versi√≥n 4.0.2) \cite{LenguajeR} nos ofrece una herramienta para eliminar este tipo de palabras, lo que me permiti√≥ poder obtener bigramas para poder extraer informaci√≥n relevante del texto.\\
 
 \begin{figure}[]
 \begin{center}
 \includegraphics[width=16 cm]{FigModeloReporte/T2_palabras.png}
-\caption{Frecuencia de las palabras m·s utilizadas en el texto}\label{f2}
+\caption{Frecuencia de las palabras m√°s utilizadas en el texto}\label{f2}
 \end{center}
 \end{figure}
 
-La figura \ref{f3} expone una red sem·ntica con los bigrama obtenidos, los cuales no contienen palabras huecas. Esta red muestra la intensidad con la que se relacionan las palabras, es decir, la frecuencia con la que parejas de palabras aparecen en el texto. De dicha figura, podemos observar que aparece la palabra \emph{singing mouse}, lo que no da la referencia al personaje principal (debido al tÌtulo tambiÈn), otro conjunto de palabras que me llamÛ la atenciÛn fue \emph{lake belle marie}, por lo que supongo la historia se desarrolla cerca de un lago. AsÌ mismo, \emph{little river} y \emph{delectable mountains} nos hacen sospechar, que la historia se desarrolla cerca de un paisaje lleno de naturaleza.
+La figura \ref{f3} expone una red sem√°ntica con los bigrama obtenidos, los cuales no contienen palabras huecas. Esta red muestra la intensidad con la que se relacionan las palabras, es decir, la frecuencia con la que parejas de palabras aparecen en el texto. De dicha figura, podemos observar que aparece la palabra \emph{singing mouse}, lo que no da la referencia al personaje principal (debido al t√≠tulo tambi√©n), otro conjunto de palabras que me llam√≥ la atenci√≥n fue \emph{lake belle marie}, por lo que supongo la historia se desarrolla cerca de un lago. As√≠ mismo, \emph{little river} y \emph{delectable mountains} nos hacen sospechar, que la historia se desarrolla cerca de un paisaje lleno de naturaleza.
 
 \begin{figure}[]
 \begin{center}
 \includegraphics[width=16 cm]{FigModeloReporte/T2_bigrama.png}
-\caption{Red sem·ntica de parejas de palabras utilizadas en el texto}\label{f3}
+\caption{Red sem√°ntica de parejas de palabras utilizadas en el texto}\label{f3}
 \end{center}
 \end{figure}
 
 \bibliographystyle{plain}
-\bibliography{MiBiblio}
+\bibliography{BiblioE}
 
 \end{document} 
