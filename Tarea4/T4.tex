@@ -1,0 +1,179 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref} % navega por el doc
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+\renewcommand{\spanishtablename}{Cuadro}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 4}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 4 \\ Distribución de Poisson}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{Septiembre 2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Descripción de la distribución de Poisson}
+
+La distribución de Poisson es otra de las distribuciones ``especiales”, es decir, de las más comunes en la vida real. Sirve para representar el número de eventos de poca frecuencia (a veces se les llama eventos raros) que ocurren en el tiempo o en el espacio.\\
+
+La función de probabilidad de una distribución de Poisson es:
+
+\begin{equation*}\label{poisson}
+  P(X=x)  = \frac{\lambda^{x}e^{-\lambda}}{x!}
+\end{equation*}
+
+\noindent donde $P(X=x)$ es la probabilidad de $x$ ocurrencias ($x=0, 1, 2,\ldots$), dado $\lambda$ igual al número promedio de eventos que ocurren por unidad de tiempo o de espacio.\\
+
+Una forma común de encontrar una variable aleatoria con una distribución Poisson es por medio de un modelo llamado \emph{proceso Poisson}, si observamos dicho proceso con $\lambda$ igual al número medio de sucesos \emph{por unidad} (longitud, área, etc.), entonces $Y=$ número de sucesos en $a$ unidades tiene una distribución Poisson con media $a\lambda$. Una suposición clave en el desarrollo de la teoría del proceso Poisson es la independencia de los
+números de sucesos en intervalos inconexos (áreas, etc.).\\
+
+\section{Resumen de generadores}
+
+Los generadores propuestos a lo largo de los años se pueden clasificar en varios grupos:
+
+\begin{enumerate}
+  \item Generadores basadas en la conexión con procesos homogéneos de Poisson (Knuth, 1969). Estos generadores son muy simples, pero funcionan en un tiempo esperado proporcional a $\lambda$.
+  \item Métodos de inversión, la inversión por búsqueda secuencial iniciada en $0$ se ejecuta en el tiempo esperado proporcional a $\lambda$. Si la búsqueda secuencial comienza en la moda, entonces el tiempo esperado es $O(\sqrt{\lambda})$ (Fishman, 1976).
+  \item Generadores basados en propiedades recursivas de la distribución (Ahrens y Dleter, 1974). Se sabe que uno de estos generadores tarda un tiempo esperado proporcional al $\log(\lambda)$.
+  \item Métodos de rechazo, los métodos de rechazo parecen conducir a los algoritmos uniformemente rápidos más simples (Atkinson, 1979; Ahrens y Dieter, 1980; Devroye, 1981; Schmelser y Kachltvlchyanukul, 1981)
+  \item Método de aceptación-complemento con la distribución Normal como distribución inicial (Véase Ahrens y Dieter (1982)). Este enfoque conduce a algoritmos eficientes uniformemente rápidos, pero los programas de computadora son bastante largos.
+\end{enumerate}
+
+En la literatura podemos encontrar algunos método para generar variables aleatorias de Poisson que se basaba típicamente en la proximidad de la distribución Normal para valores grandes de $\lambda$. Pero los algoritmos que realmente importan son los que son simples, rápidos o ambos. La definición de "rápido" puede incluir o no el tiempo de configuración. Además, dado que nuestras comparaciones no pueden basarse en implementaciones reales, es importante diferenciar entre modelos computacionales \cite{Dev1993} (Devroye, 1986).
+
+\section{Generadores simples}
+
+La conexión entre la distribución de Poisson y los tiempos entre llegadas exponenciales en un proceso puntual homogéneo es la siguiente: si $E_1, E_2. \ldots$ son variables aleatorias exponenciales y $X$ es el número entero más pequeño tal que
+
+\[
+\sum_{i=1}^{X+1}E_{i} > \lambda
+\]
+
+\noindent entonces $X$ es Poisson($\lambda$).\\
+
+Usando el hecho de que una variable aleatoria uniforme se distribuye como $e^{-E}$, entonces se puede deducir lo siguiente: sean $U_1, U_2. \ldots$ variables aleatorias uniformes $(0,1)$, y sea $X$ el número entero más pequeño tal que
+
+\[
+\prod_{i=1}^{X+1}U_{i} < e^{\lambda}
+\]
+
+\noindent entonces $X$ es Poisson($\lambda$).\\
+
+Con la información anterior, se implementó un algoritmo en lenguaje R \cite{LenguajeR}, haciendo variar el valor de $\lambda$ a un valor menor a seis, cuya gráfica se visualiza con sesgo a la izquierda, a un valor igual a seis, cuya gráfica se supone un poco simétrica, y con un valor grande, para monitorear el comportamiento de la gráfica. Por otro lado, se modificó de igual forma el número de réplicas en el experimento, en este caso solo se tomaron en cuenta dos valores, uno pequeño ($1000$) y uno grande ($10000$).\\
+
+En la figura \ref{f1}  se puede observar que el número de réplicas es un factor importante para que las gráficas se parezcan. En la figura \ref{f2} se pued observar este mismo comportamiento, sin embargo en la figura \ref{f3}, se puede apreciar que al aumentar tanto la $\lambda$ como el número de réplicas las gráficas parecen bastante similares. Es necesario otro tipo de herramienta estadística que nos permita concluir acerca del comportamiento de los parámetros para poder inducir cuáles son los valores que hacen que los generadores utilizando la distribución uniforme y la exponencial sean cuasi iguales a la distribución de Poisson.\\
+
+\begin{figure}
+ \centering
+  \subfloat[10000 réplicas]{
+   \label{f1a}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/forma_1.png}}
+   \hfil
+  \subfloat[1000 réplicas]{
+   \label{f1b}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/forma_2.png}}
+ \caption{Gráficas utilizando $\lambda = 2$.}
+ \label{f1}
+\end{figure}
+
+\begin{figure}
+ \centering
+  \subfloat[10000 réplicas]{
+   \label{f2a}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/forma_3.png}}
+   \hfil
+  \subfloat[1000 réplicas]{
+   \label{f2b}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/forma_4.png}}
+ \caption{Gráficas utilizando $\lambda = 6$.}
+ \label{f2}
+\end{figure}
+
+\begin{figure}
+ \centering
+  \subfloat[10000 réplicas]{
+   \label{f3a}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/forma_5.png}}
+   \hfil
+  \subfloat[1000 réplicas]{
+   \label{f3b}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/forma_6.png}}
+ \caption{Gráficas utilizando $\lambda = 50$.}
+ \label{f3}
+\end{figure}
+
+Otra propuesta fue aproximar mediante una distribución Normal, sin embargo, la variación de parámetros no estuvo muy clara, al parecer si se maneja un valor de $\lambda$ menor a 6, las gráficas muestran cierto parecido, sin embargo al aumentar el valor se van distorsionando aún más, por lo que etse análisis de dejo aparte y no se consideró como parte del análisis (ver figura \ref{f4}).\\
+
+\begin{figure}
+ \centering
+  \subfloat[$\lambda = 2$]{
+   \label{f4a}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/formanormal_1.png}}
+   \hfil
+  \subfloat[$\lambda = 6$]{
+   \label{f4b}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/formanormal_2.png}}
+ \caption{Gráficas utilizando 10000 réplicas.}
+ \label{f4}
+\end{figure}
+
+
+Al iniciar la tarea se produjo una idea errónea de lo que se quería realizar en la tarea, y el intento que se hizo fue aproximar a la distribución Poisson utilizando las distribuciones uniforme y exponencial, en una parte se generó un número aleatorio uniforme y luego se dividió el intervalo [$0,1$] en subintervalos de modo que el j-ésimo subintervalo tenía longitud $p_j$. Por otro lado, se utiliza el hecho de que el número de eventos en algún intervalo $[0,t]$ tiene una distribución de Poisson cuando los tiempos transcurridos entre los eventos son exponenciales, es decir, la variable a considerar es el número máximo de variables aleatorias exponenciales. En la figura \ref{f5} se puede apreciar el comportamiento de las gráficas, en las cuales podemos observar que no hay algún cambio drástico en cuanto al cambio de parámetros.
+
+\begin{figure}
+ \centering
+  \subfloat[$\lambda = 50$ y 10000 réplicas]{
+   \label{f5a}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/aprox_1.png}}
+   \hfil
+  \subfloat[$\lambda = 6$ y 1000 réplicas]{
+   \label{f5b}
+    \includegraphics[width=0.48\textwidth]{FigModeloReporte/aprox_2.png}}
+ \caption{Gráficas utilizando diferentes valores de $\lambda$ y número de réplicas.}
+ \label{f5}
+\end{figure}
+
+\bibliographystyle{plain}
+\bibliography{MiBiblio}
+
+\end{document} 
