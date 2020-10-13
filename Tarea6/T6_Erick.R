@@ -2,6 +2,21 @@
 #Tarea 6
 #Modelos Probabilistas Aplicados
 
+if (!require("ggplot2")) {
+    install.packages("ggplot2")
+}
+require(ggplot2)
+
+if (!require("gplots")) {
+    install.packages("gplots")
+}
+require(gplots)
+
+if (!require("plotly")) {
+    install.packages("plotly")
+}
+require(plotly)
+
 datos <- read.table("Prueba1.txt", header = TRUE)
 datosc = numeric
 datosc <- c(datos$Hombres, datos$Mujeres)
@@ -15,7 +30,7 @@ media = 9.1
 #wilcox.test(datos$Hombres, datos$Mujeres)
 
 png('datos1.png', width=2000,height=1800,res=300)
-qqnorm(datosc, xlab = "Valores teóricos", ylab = "Valores del grado de escolaridad en México", main = NULL, col = "firebrick")
+qqnorm(datosc, xlab = "Valores teÃ³ricos", ylab = "Valores del grado de escolaridad en MÃ©xico", main = NULL, col = "firebrick")
 qqline(datosc)
 dev.off()
 
@@ -28,7 +43,7 @@ dev.off()
 datos2 <- read.table("Prueba2.txt", header = TRUE)
 
 png('datos3.png', width=2000,height=1800,res=300)
-qqnorm(datos2$Tasa, xlab = "Valores teóricos", ylab = "Valores de la tasa de abandono escolar en México", main = NULL, col = "springgreen4")
+qqnorm(datos2$Tasa, xlab = "Valores teÃ³ricos", ylab = "Valores de la tasa de abandono escolar en MÃ©xico", main = NULL, col = "springgreen4")
 qqline(datos2$Tasa)
 dev.off()
 
