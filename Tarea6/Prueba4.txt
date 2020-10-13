@@ -1,0 +1,6 @@
+		Maestros	Escuelas
+Preescolar	236509		90446
+Primaria	572104		96508
+Secundaria	406084		39967
+Media_superior	418893		21010
+Superior	414408		5535
