@@ -1,0 +1,547 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=violet,
+    linkcolor=red,
+    urlcolor=blue}
+\spanishdecimal{.}
+
+\renewcommand{\spanishtablename}{Cuadro}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 9}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 9 \\ Valor esperado y varianza}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{03/11/2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Valor esperado de variables aleatorias discretas}
+
+\noindent \textbf{Ejercicio 1 -- pág. 247}\\
+
+Se tienen nueve opciones para este juego, si el jugador al sacar una carta obtiene al 2, 4, 6, 8 y 10 perderá \$1, si obtiene al 3, 5, 7, 9 ganará \$1, por lo que si definimos a $X$ como la cantidad de dinero que gana un jugador, entonces la distribución de probabilidad esta dada en el cuadro \ref{c0}, luego el valor esperado para $X$ es:
+\begin{equation*}
+  \mathbb{E} (X) = -1\left(\frac{5}{9}\right) + 1\left(\frac{4}{9}\right) = -\frac{1}{9},
+\end{equation*}
+
+\noindent es decir, se espera que al jugar se tenga una pérdida de \$0.11.\\
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 1 -- pág. 247).}
+\begin{tabular}{rc}
+\hline
+\textbf{$x$}                       & \textbf{$p(x)$} \\
+\hline
+\textbf{-1}  & 5/9                                   \\
+\textbf{1}  & 4/9                                   \\
+\hline
+\end{tabular}
+\label{c0}
+\end{center}
+\end{table}
+
+\noindent \textbf{Ejercicio 6 -- pág. 247}\\
+
+Se debe demostrar que $E(XY) = E(X)E(Y)$, por lo que, como primer paso se determina el valor esperado de $X$, en el cuadro \ref{c1} se presentan todos los posibles resultados para la variable $X =$ suma de los dos números al lanzar un dado dos veces, y su distribución de probabilidad se puede visualizar en el cuadro \ref{c2}, por lo que el valor esperado se calcula de la siguiente forma\nocite{Grinstead12}:
+
+\begin{equation*}
+  \mathbb{E}(X) = 2\left(\frac{1}{36}\right) + 3\left(\frac{2}{36}\right) + 4\left(\frac{3}{36}\right) + 5\left(\frac{4}{36}\right) + 6\left(\frac{5}{36}\right) + 7\left(\frac{5}{36}\right) + 8\left(\frac{5}{36}\right) + 9\left(\frac{4}{36}\right)
+\end{equation*}
+
+\begin{equation*}
+  + 10\left(\frac{3}{36}\right) + 11\left(\frac{2}{36}\right) + 12\left(\frac{1}{36}\right) = \frac{245}{36} .
+\end{equation*}
+
+\begin{table}[]
+\begin{center}
+\caption{Resultados para la variable $X$ (suma de las dos caras observadas al lanzar un dado dos veces).}
+\begin{tabular}{cccccccc}
+                                              & \multicolumn{7}{c}{Dado 1}                                                                                                                                                                                                                                                                                                                                                                                   \\ \cline{3-8}
+                                              & \multicolumn{1}{c|}{}                                  & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{1}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{2}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{3}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{4}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{5}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{6}}} \\ \cline{2-8}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{1}}} & 2                                                      & 3                                                      & 4                                                      & 5                                                      & 6                                                      & 7                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{2}}} & 3                                                      & 4                                                      & 5                                                      & 6                                                      & 7                                                      & 8                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{3}}} & 4                                                      & 5                                                      & 6                                                      & 7                                                      & 8                                                      & 9                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{4}}} & 5                                                      & 6                                                      & 7                                                      & 8                                                      & 9                                                      & 10                                                     \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{5}}} & 6                                                      & 7                                                      & 8                                                      & 9                                                      & 10                                                     & 11                                                     \\ \cline{2-2}
+\multicolumn{1}{c|}{\multirow{-6}{*}{Dado 2}} & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{6}}} & 7                                                      & 8                                                      & 9                                                      & 10                                                     & 11                                                     & 12                                                     \\ \cline{2-2}
+\end{tabular}
+\label{c1}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 6 -- pág. 247).}
+\begin{tabular}{rc}
+\hline
+\textbf{$x$}                       & {\color[HTML]{000000} \textbf{$p(x)$}} \\
+\hline
+{\color[HTML]{000000} \textbf{2}}  & 1/36                                   \\
+{\color[HTML]{000000} \textbf{3}}  & 2/36                                   \\
+{\color[HTML]{000000} \textbf{4}}  & 3/36                                   \\
+{\color[HTML]{000000} \textbf{5}}  & 4/36                                   \\
+{\color[HTML]{000000} \textbf{6}}  & 5/36                                   \\
+{\color[HTML]{000000} \textbf{7}}  & 6/36                                   \\
+{\color[HTML]{000000} \textbf{8}}  & 5/36                                   \\
+{\color[HTML]{000000} \textbf{9}}  & 4/36                                   \\
+{\color[HTML]{000000} \textbf{10}} & 3/36                                   \\
+{\color[HTML]{000000} \textbf{11}} & 2/36                                   \\
+{\color[HTML]{000000} \textbf{12}} & 1/36\\
+\hline
+\end{tabular}
+\label{c2}
+\end{center}
+\end{table}
+
+Luego se determina el valor esperado de $Y$, en el cuadro \ref{c3} se presentan todos los posibles resultados para la variable $Y =$ resta de los dos números observados $(\#1 - \#2)$ al lanzar un dado dos veces, y su distribución de probabilidad se puede visualizar en el cuadro \ref{c4}, por lo que el valor esperado se calcula de la siguiente forma:
+\begin{equation*}
+  \mathbb{E}(Y) = -5\left(\frac{1}{36}\right) - 4\left(\frac{2}{36}\right) - 3\left(\frac{3}{36}\right) - 2\left(\frac{4}{36}\right) - 1\left(\frac{5}{36}\right) + 0\left(\frac{5}{36}\right) + 1\left(\frac{5}{36}\right) + 2\left(\frac{4}{36}\right)
+\end{equation*}
+
+\begin{equation*}
+  + 3\left(\frac{3}{36}\right) + 4\left(\frac{2}{36}\right) + 5\left(\frac{1}{36}\right) = 0 .
+\end{equation*}
+
+\begin{table}[]
+\begin{center}
+\caption{Resultados para la variable $Y$ (resta del primer número observado con el segundo número al lanzar un dado dos veces).}
+\begin{tabular}{cccccccc}
+                                              & \multicolumn{7}{c}{Dado 1}                                                                                                                                                                                                                                                                                                                                                                                   \\ \cline{3-8}
+                                              & \multicolumn{1}{c|}{}                                  & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{1}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{2}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{3}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{4}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{5}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{6}}} \\ \cline{2-8}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{1}}} & 0                                                      & 1                                                      & 2                                                      & 3                                                      & 4                                                      & 5                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{2}}} & -1                                                      & 0                                                      & 1                                                      & 2                                                      & 3                                                      & 4                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{3}}} & -2                                                      & -1                                                      & 0                                                      & 1                                                      & 2                                                      & 3                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{4}}} & -3                                                      & -2                                                      & -1                                                      & 0                                                      & 1                                                      & 2                                                     \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{5}}} & -4                                                      & -3                                                      & -2                                                      & -1                                                      & 0                                                     & 1                                                     \\ \cline{2-2}
+\multicolumn{1}{c|}{\multirow{-6}{*}{Dado 2}} & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{6}}} & -5                                                      & -4                                                      & -3                                                      & -2                                                     & -1                                                     & 0                                                     \\ \cline{2-2}
+\end{tabular}
+\label{c3}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $Y$ (ejercicio 6 -- pág. 247).}
+\begin{tabular}{rc}
+\hline
+\textbf{$y$}                       & {\color[HTML]{000000} \textbf{$p(y)$}} \\
+\hline
+{\color[HTML]{000000} \textbf{-5}}  & 1/36                                   \\
+{\color[HTML]{000000} \textbf{-4}}  & 2/36                                   \\
+{\color[HTML]{000000} \textbf{-3}}  & 3/36                                   \\
+{\color[HTML]{000000} \textbf{-2}}  & 4/36                                   \\
+{\color[HTML]{000000} \textbf{-1}}  & 5/36                                   \\
+{\color[HTML]{000000} \textbf{0}}  & 6/36                                   \\
+{\color[HTML]{000000} \textbf{1}}  & 5/36                                   \\
+{\color[HTML]{000000} \textbf{2}}  & 4/36                                   \\
+{\color[HTML]{000000} \textbf{3}} & 3/36                                   \\
+{\color[HTML]{000000} \textbf{4}} & 2/36                                   \\
+{\color[HTML]{000000} \textbf{5}} & 1/36\\
+\hline
+\end{tabular}
+\label{c4}
+\end{center}
+\end{table}
+
+Un análisis semejante se utiliza para determinar el valor esperado de $XY$, en el cuadro \ref{c5} se presentan todos los posibles resultados para la variable $XY$, en dónde se puede observar que su distribución de probabilidad contiene 31 elementos, cada uno con probabilidad igual a $1/36$, excepto para $XY=0$, ya que su probabilidad es $6/36 = 1/6$, así, el valor esperado se calcula de como sigue:
+\begin{equation*}
+  \mathbb{E}(XY) = -35\left(\frac{1}{36}\right) + \cdots - 3\left(\frac{1}{36}\right) + 0\left(\frac{1}{6}\right) + 3\left(\frac{1}{36}\right) + \cdots + 35\left(\frac{1}{36}\right) = 0.
+\end{equation*}
+
+\begin{table}[]
+\begin{center}
+\caption{Resultados para la variable $XY$.}
+\begin{tabular}{cccccccc}
+                                              & \multicolumn{7}{c}{Dado 1}                                                                                                                                                                                                                                                                                                                                                                                   \\ \cline{3-8}
+                                              & \multicolumn{1}{c|}{}                                  & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{1}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{2}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{3}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{4}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{5}}} & \multicolumn{1}{c|}{{\color[HTML]{680100} \textbf{6}}} \\ \cline{2-8}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{1}}} & 0                                                      & 3                                                      & 8                                                      & 15                                                      & 24                                                      & 35                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{2}}} & -3                                                      & 0                                                      & 5                                                      & 12                                                      & 21                                                      & 32                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{3}}} & -8                                                      & -5                                                      & 0                                                      & 7                                                      & 16                                                      & 27                                                      \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{4}}} & -15                                                      & -12                                                      & -7                                                      & 0                                                      & 9                                                      & 20                                                     \\ \cline{2-2}
+\multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{5}}} & -24                                                      & -21                                                      & -16                                                      & -9                                                      & 0                                                     & 11                                                     \\ \cline{2-2}
+\multicolumn{1}{c|}{\multirow{-6}{*}{Dado 2}} & \multicolumn{1}{c|}{{\color[HTML]{00009B} \textbf{6}}} & -35                                                      & -32                                                      & -27                                                      & -20                                                     & -11                                                     & 0                                                     \\ \cline{2-2}
+\end{tabular}
+\label{c5}
+\end{center}
+\end{table}
+
+Luego entonces, $\mathbb{E}(XY) = 0$, $\mathbb{E}(X) = 245/36$ y $\mathbb{E}(Y) = 0$, por lo que: $\mathbb{E}(X) \mathbb{E}(Y) = (245/36) * 0 = 0$, así queda demostrado que $\mathbb{E}(XY) = \mathbb{E}(X) \mathbb{E}(Y)$. Con este resultado y utilizando el teorema $6.4$, se podría concluir que $X$ y $Y$ son variables independientes, es decir, se debería cumplir lo siguiente: $P(X=x_j , Y=y_k) = P(X=X_j) P(Y=y_K)$. Pero, si al lanzar un dado dos veces observamos que en la primera vez obtuvimos un 1 y en el segundo lanzamiento obtuvimos un 2, entonces tendríamos que $x = 3$ y $y = -1$, por lo que $P(X=3)=2/36$ y $P(Y=-1)=-5/36$, y $P(X=3 , Y=-1) = 1/36$, luego:
+\begin{equation*}
+  P(X=3 , Y=-1) = \frac{1}{36} \neq \frac{5}{648} = \left(\frac{2}{36}\right) \left(\frac{-5}{36}\right) = P(X=3)P(Y=-1),
+\end{equation*}
+
+\noindent por lo que se concluye que $X$ y $Y$ \emph{no} son variables independientes.\\
+
+\noindent \textbf{Ejercicio 15 -- pág. 249}\\
+
+Para poder obtener el número de permutaciones posibles para este juego, utilizamos la siguiente expresión:
+\begin{equation*}
+  _5P_{2,3} = \frac{5!}{2! 3!} = 10,
+\end{equation*}
+
+\noindent es decir, exiten 10 formas de extraer las cinco bolas (2 de color oro (O) y 3 de color plata (P)), las cuales se muestran en el cuadro \ref{c6} junto con la ganancia generada, en donde, si se tiene \textbf{PPOPO}, significa que primero se extrae una bola plateada, por lo que la ganancia sería \$-1, luego se vuelve a extraer otra bola plateada, por lo que la ganancia es \$-2, en el tercer intento se extrae una bola dorada, así la ganancia es \$-2$+$\$1 = \$-1, luego se extrae una bola plateada cuya ganancia se modifica a \$-2 y finalmente se extrae una bola dorada, por lo que la ganancia total es de \$-1. Entonces, se define a la variable $X$ como la ganancia (\$) obtenida al extraer bolas de una caja (siempre estando un dólar por arriba o hasta que no haya bolas doradas), así, la distribución de probabilidad para $X$ se muestra en el cuadro \ref{c7}. Por lo que $\mathbb{E}(X)$ se calcula como sigue:
+\begin{equation*}
+  \mathbb{E}(X) = -1\left(\frac{3}{10}\right) + 0\left(\frac{2}{10}\right) + 1\left(\frac{5}{10}\right) = \frac{2}{10},
+\end{equation*}
+
+\noindent luego, como $\mathbb{E}(X) > 0$, entonces se puede decir que si es un juego favorable para el jugador, ya que se espera obtener una pequeña ganancia cada que se juega.\\
+
+\begin{table}[]
+\begin{center}
+\caption{Ganancia generada al extraer las cinco bolas (recuerde que no es necesario extraer todas).}
+\begin{tabular}{c|c}
+\textbf{Forma de extraer las bolas}   & {\color[HTML]{000000} \textbf{Ganancia (\$)}} \\
+\hline
+{\color[HTML]{000000} \textbf{OOPPP}} & 1                                             \\
+{\color[HTML]{000000} \textbf{OPOPP}} & 1                                             \\
+{\color[HTML]{000000} \textbf{OPPOP}} & 1                                             \\
+{\color[HTML]{000000} \textbf{OPPPO}} & 1                                             \\
+{\color[HTML]{000000} \textbf{POPPO}} & -1                                            \\
+{\color[HTML]{000000} \textbf{PPOPO}} & -1                                            \\
+{\color[HTML]{000000} \textbf{PPPOO}} & -1                                            \\
+{\color[HTML]{000000} \textbf{POPOP}} & 0                                             \\
+{\color[HTML]{000000} \textbf{POOPP}} & 1                                             \\
+{\color[HTML]{000000} \textbf{PPOOP}} & 0
+\end{tabular}
+\label{c6}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 15 -- pág. 249).}
+\begin{tabular}{rc}
+\hline
+\textbf{$x$}                       & {\color[HTML]{000000} \textbf{$p(x)$}} \\
+\hline
+{\textbf{-1}}  & 3/10                                   \\
+{\textbf{0}}  & 2/10                                   \\
+{\textbf{1}}  & 5/10                                   \\
+\hline
+\end{tabular}
+\label{c7}
+\end{center}
+\end{table}
+
+\noindent \textbf{Ejercicio 19 -- pág. 249}\\
+
+Suponga que las cuatro opciones disponibles en una pregunta son \textbf{A}, \textbf{B}, \textbf{C} y \textbf{D}, y que la opción correcta es \textbf{A}, luego las posibles respuestas que puede dar un alumno con la puntuación obtenida se muestra en el cuadro \ref{c8}, y la distribución de probabilidad para $X$ (puntuación obtenida) se muestra en el cuadro \ref{c9}. Luego, para calcular la puntuación esperada se tiene:
+\begin{equation*}
+  \mathbb{E}(X) = -3\left(\frac{1}{16}\right) - 2\left(\frac{3}{16}\right) - 1\left(\frac{3}{16}\right) + 0\left(\frac{2}{16}\right) + 1\left(\frac{3}{16}\right) + 2\left(\frac{3}{16}\right) + 3\left(\frac{1}{16}\right) = 0,
+\end{equation*}
+
+\noindent por lo que si el estudiante escoge de manera aleatoria sus posibles respuestas se espera que obtenga \emph{cero} como puntuación.
+
+\begin{table}[]
+\begin{center}
+\caption{Opciones para responder una pregunta.}
+\begin{tabular}{c|c}
+\hline
+\textbf{Conjuntos}                       & \textbf{Puntuación obtenida} \\
+\hline
+No responder  & 0                                   \\
+\{A\}  & 3                                   \\
+\{B\}  & -1                                   \\
+\{C\}  & -1                                   \\
+\{D\}  & -1                                   \\
+\{A,B\}  & 2                                   \\
+\{A,C\}  & 2                                   \\
+\{A,D\}  & 2                                   \\
+\{B,C\}  & -2                                   \\
+\{B,D\}  & -2                                   \\
+\{C,D\}  & -2                                   \\
+\{A,B,C\}  & 1                                   \\
+\{A,B,D\}  & 1                                   \\
+\{A,C,D\}  & 1                                   \\
+\{B,C,D\}  & -3                                   \\
+\{A,B,C,D\}  & 0                                   \\
+\hline
+\end{tabular}
+\label{c8}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 19 -- pág. 249).}
+\begin{tabular}{rc}
+\hline
+\textbf{$x$}                       & {\color[HTML]{000000} \textbf{$p(x)$}} \\
+\hline
+{\textbf{-3}}  & 1/16                                   \\
+{\textbf{-2}}  & 3/16                                   \\
+{\textbf{-1}}  & 3/16                                   \\
+{\textbf{0}}  & 2/16                                   \\
+{\textbf{1}}  & 3/16                                   \\
+{\textbf{2}}  & 3/16                                   \\
+{\textbf{3}}  & 1/16                                   \\
+\hline
+\end{tabular}
+\label{c9}
+\end{center}
+\end{table}
+
+\section{Varianza de variables aleatorias discretas}
+
+\noindent \textbf{Ejercicio 1 -- pág. 263}\\
+
+Sea $X =$ escoger un número entre \{-1,0,1\}, la distribución de probabilidad de $X$ se muestra en el cuadro \ref{c10}, en la cual se ha agregado una columna que contiene los valores de $x^2$, ya que este valor se utiliza en el calculo de la varianza. Luego el valor esperado de $x$ y $x^2 $ se obtiene como sigue:
+\begin{equation*}
+  \mathbb{E}(X) = -1\left(\frac{1}{3}\right) + 0\left(\frac{1}{3}\right) + 1\left(\frac{1}{3}\right) = 0,
+\end{equation*}
+
+\begin{equation*}
+  \mathbb{E}(X^2) = 1\left(\frac{1}{3}\right) + 0\left(\frac{1}{3}\right) + 1\left(\frac{1}{3}\right) = \frac{2}{3},
+\end{equation*}
+
+\noindent así, por teorema $6.6$ tenemos que la varianza de $X$ es igual a:
+\begin{equation*}
+  \mathbb{V}(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2 = \frac{2}{3} - 0^2 = \frac{2}{3},
+\end{equation*}
+
+\noindent luego entonces, la desviación estándar es:
+\begin{equation*}
+  \mathbb{D}(X) = \sqrt{\frac{2}{3}}.
+\end{equation*}
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 1 -- pág. 263).}
+\begin{tabular}{rcc}
+\hline
+\textbf{$x$}                       & \textbf{$p(x)$} & \textbf{$x^2$} \\
+\hline
+{\textbf{-1}}  & 1/3 & 1                                   \\
+{\textbf{0}}  & 1/3 & 0                                 \\
+{\textbf{1}}  & 1/3 & 1                                 \\
+\hline
+\end{tabular}
+\label{c10}
+\end{center}
+\end{table}
+
+\noindent \textbf{Ejercicio 9 -- pág. 264}\\
+
+Se define a $X$ como el valor observado (cara) al lanzar un dado, cuya probabilidad es proporcional al número observado, por lo que la distribución de probabilidad se muestra en el cuadro \ref{c11}.\\
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 9 -- pág. 264).}
+\begin{tabular}{rcc}
+\hline
+\textbf{$x$}                       & \textbf{$p(x)$} \\
+\hline
+{\textbf{1}}  & $k$                                    \\
+{\textbf{2}}  & $2k$                                    \\
+{\textbf{3}}  & $3k$                                    \\
+{\textbf{4}}  & $4k$                                    \\
+{\textbf{5}}  & $5k$                                    \\
+{\textbf{6}}  & $6k$                                    \\
+\hline
+\end{tabular}
+\label{c11}
+\end{center}
+\end{table}
+
+Se sabe que $k + 2k + 3k + 4k + 5k + 6k = 1$, entonces $k =1/21$, de esta forma la distribución de probabilidad para $X$ se muestra en el cuadro \ref{c12}, en donde se ha incluido una columna con los valores de $x^2$.\\
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 9 -- pág. 264).}
+\begin{tabular}{rcc}
+\hline
+\textbf{$x$}                       & \textbf{$p(x)$} & \textbf{$x^2$} \\
+\hline
+{\textbf{1}}  & 1/21 & 1                                   \\
+{\textbf{2}}  & 2/21 & 4                                   \\
+{\textbf{3}}  & 3/21 & 9                                   \\
+{\textbf{4}}  & 4/21 & 16                                   \\
+{\textbf{5}}  & 5/21 & 25                                   \\
+{\textbf{6}}  & 6/21 & 36                                   \\
+\hline
+\end{tabular}
+\label{c12}
+\end{center}
+\end{table}
+
+Luego, el valor esperado de $x$ y $x^2$ se presentan a continuación:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{E}(X) &=& 1\left(\frac{1}{21}\right) + 2\left(\frac{2}{21}\right) + 3\left(\frac{3}{21}\right) + 4\left(\frac{4}{21}\right) + 5\left(\frac{5}{21}\right) + 6\left(\frac{6}{21}\right) \\
+   &=& \frac{1}{21} + \frac{4}{21} + \frac{9}{21} + \frac{16}{21} + \frac{25}{21} + \frac{36}{21} = \frac{91}{21} = \frac{13}{3},
+\end{eqnarray*}
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{E}(X^2) &=& 1\left(\frac{1}{21}\right) + 4\left(\frac{2}{21}\right) + 9\left(\frac{3}{21}\right) + 16\left(\frac{4}{21}\right) + 25\left(\frac{5}{21}\right) + 36\left(\frac{6}{21}\right) \\
+   &=& \frac{1}{21} + \frac{8}{21} + \frac{27}{21} + \frac{64}{21} + \frac{125}{21} + \frac{216}{21} = \frac{441}{21} = 21,
+\end{eqnarray*}
+
+\noindent luego, la varianza y desviación estándar están dadas por:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{V}(X) &=& 21 - \left(\frac{13}{3}\right)^2 = \frac{20}{9}, \\
+  \mathbb{D}(X) &=& \sqrt{\frac{20}{9}} = \frac{\sqrt{20}}{3}.
+\end{eqnarray*}
+
+\noindent \textbf{Ejercicio 12 -- pág. 264}\\
+
+Sea $X^* = (X-\mu) / \sigma$, utilizando algunas de las propiedades de valor esperado y considerando que $\mu = \mathbb{E}$ y $\sigma^2 = \mathbb{V}$, se tiene que:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{E} (X^*) &=& \mathbb{E} \left(\frac{X-\mu}{\sigma} \right) \\
+   &=& \frac{1}{\sigma} \mathbb{E} (X-\mu) \\
+   &=& \frac{1}{\sigma} (\mathbb{E} (X) - \mu) \\
+   &=& \frac{1}{\sigma}(\mu - \mu) \\
+   &=& 0.
+\end{eqnarray*}
+
+Luego, por definición 6.3 se sabe que $\mathbb{V}(X) = \mathbb{E}[(X-\mu)^2] = \sigma^2$, entonces:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{V} (X^*) &=& \mathbb{E} \left[\left(\frac{X-\mu}{\sigma} \right)^2\right] \\
+   &=& \mathbb{E} \left[\frac{(X-\mu)^2}{\sigma^2}\right] \\
+   &=& \frac{1}{\sigma^2} \mathbb{E}(X-\mu)^2  \\
+   &=& \frac{\sigma^2}{\sigma^2} \\
+   &=& 1.
+\end{eqnarray*}
+
+\section{Variables aleatorias continuas}
+
+\noindent \textbf{Ejercicio 3 -- pág. 278}\\
+
+Sea $f_T (t) = \lambda^2 t e^{-\lambda t}$, con $\lambda = 0.05$, luego entonces, por teorema 6.11 se tiene que:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{E}(T) &=& \int ^\infty _0 t\left( \left(\frac{1}{20}\right)^2 t e^{-\frac{t}{20}} \right) dt\\
+   &=& \frac{1}{400} \lim _{b\rightarrow \infty} \int ^b _0 t^2 e^{-\frac{t}{20}}\\
+   &=& \frac{1}{400} \lim _{b\rightarrow \infty} \left[\left.t^2 \left(-20e^{-\frac{t}{20}}\right) \right|^b _0 + 40 \int ^b _0 t e^{-\frac{t}{20}} dt \right] \\
+   &=& \frac{1}{400} \lim _{b\rightarrow \infty} \left[\left.-20t^2 e^{-\frac{t}{20}} \right|^b _0 + 40 \left[\left.-20 t e^{-\frac{t}{20}} \right|^b _0 + 20\int ^b _0 e^{-\frac{t}{20}} dt \right] \right] \\
+   &=& \frac{1}{400} \lim _{b\rightarrow \infty} \left[-20t^2 e^{-\frac{t}{20}} -800t e^{-\frac{t}{20}} + 800(-20 e^{-\frac{t}{20}})\right]^b _0 \\
+   &=& \frac{1}{400} \lim _{b\rightarrow \infty} \left[\frac{-20t^2}{e^{\frac{t}{20}}} - \frac{800t}{e^{\frac{t}{20}}} - \frac{16000}{e^{\frac{t}{20}}}    \right]^b _0 \\
+   &=& \frac{1}{400} \left[ \lim _{b\rightarrow \infty} \left(\frac{-20b^2}{e^{\frac{b}{20}}} - \frac{800b}{e^{\frac{b}{20}}} - \frac{16000}{e^{\frac{b}{20}}} \right) - \left(\frac{-20(0)^2}{e^{\frac{0}{20}}} - \frac{800(0)}{e^{\frac{0}{20}}} - \frac{16000}{e^{\frac{0}{20}}} \right)\right] \\
+   &=& \frac{16000}{400} = 40,
+\end{eqnarray*}
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{V}(T) &=& \int ^\infty _0 t^2\left( \lambda ^2 t e^{-\lambda t} \right) dt - 40^2\\
+   &=& \lambda^2 \lim _{b\rightarrow \infty} \int ^b _0 t^3 e^{-\lambda t} dt - 1600 \\
+   &=& \lambda^2 \lim _{b\rightarrow \infty} \left[\left.\frac{-t^3 e^{-\lambda t}}{\lambda}\right|^b _0 + \frac{3}{\lambda} \int ^b _0 t^2 e^{-\lambda t} dt\right] - 1600 \\
+   &=& \lambda^2 \lim _{b\rightarrow \infty} \left[\left.\frac{-t^3 e^{-\lambda t}}{\lambda}\right|^b _0 + \frac{3}{\lambda} \left[\left.-\frac{t^2 e^{-\lambda t}}{\lambda} \right|^b _0 + \frac{2}{\lambda}\int ^b _0 t e^{-\lambda t} dt\right] \right] - 1600 \\
+   &=& \lambda^2 \lim _{b\rightarrow \infty} \left[\left.\frac{-t^3 e^{-\lambda t}}{\lambda}\right|^b _0 + \frac{3}{\lambda} \left[\left.-\frac{t^2 e^{-\lambda t}}{\lambda} \right|^b _0 + \frac{2}{\lambda}\left[\left. -\frac{t e^{-\lambda t}}{\lambda}\right|^b _0 + \frac{1}{\lambda} \int ^b _0 e^{-\lambda t} dt\right] \right] \right] - 1600 \\
+   &=& \lambda^2 \lim _{b\rightarrow \infty} \left[\frac{-t^3 e^{-\lambda t}}{\lambda} + \frac{3}{\lambda} \left[-\frac{t^2 e^{-\lambda t}}{\lambda} + \frac{2}{\lambda}\left[ -\frac{t e^{-\lambda t}}{\lambda} - \frac{e^{-\lambda t}}{\lambda^2} \right] \right] \right]^b _0 - 1600 \\
+   &=& \frac{\lambda}{e^{\lambda t}} \lim _{b\rightarrow \infty} \left[ -t^3 - \frac{3t^2}{\lambda} - \frac{6t}{\lambda ^2} - \frac{6}{\lambda^3} \right]^b _0 - 1600 \\
+   &=& 0 - \lambda \left( -0^3 - \frac{3(0)^2}{\lambda} - \frac{6(0)}{\lambda^2} - \frac{6}{\lambda^3} \right) - 1600 \\
+   &=& 2400 - 1600 = 800.
+\end{eqnarray*}
+
+Por lo que la vida útil esperada para la bombilla es igual a 40 horas, con una varianza de 800 horas$^2$.\\
+
+\noindent \textbf{Ejercicio 12 -- pág. 280}\\
+
+Para este ejercicio se utilizó la siguiente definición \cite{Wackerly09}: sea $g(Y_1, Y_2,\ldots,Y_k)$ una función de las variables aleatorias continuas con función de densidad conjunta $f(y_1, y_2,\ldots,y_k)$, entonces
+\begin{equation*}
+  \mathbb{E}[g(Y_1, Y_2,\ldots,Y_k)] = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(y_1, y_2,\ldots,y_k)*f(y_1, y_2,\ldots,y_k) dy_1 dy_2 \ldots dy_k.
+\end{equation*}
+
+Luego entonces, como $X$ y $Y$ son variables aleatorias que provienen de una distribución uniforme $[0,1]$, se tiene que:
+
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{E} (X^Y) &=& \int_{0}^{1} \int_{0}^{1} x^y dx dy \\
+   &=& \int_{0}^{1} \left[ \frac{x^{y+1}}{y+1} \right]_0 ^1 dy \\
+   &=& \int_{0}^{1} \left[ \frac{1^{y+1}}{y+1} - \frac{0^{y+1}}{y+1} \right] dy \\
+   &=& \int_{0}^{1} \frac{1}{y+1} dy, \;\text{sea } u=y+1 \;\text{entonces } du=dy \\
+   &=& \int_{1}^{2} \frac{1}{u} du \\
+   &=& \left. \ln u \right|_1^2 \\
+   &=& \ln 2. 
+\end{eqnarray*}
+
+Para corroborar este resultado, se generaron en R (Versión 4.0.2)\nocite{LenguajeR} 100 números aleatorios uniformes tanto para $X$ como para $Y$, de tal forma que se calcularon 100 números con la forma $X^Y$, la distribución de probabilidad se muestra en el cuadro \ref{c13}, en donde se supone una distribución discreta para los datos, entonces el valor esperado de $X^Y$ se determina como sigue:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{E}(X^Y) &=& 0(\frac{1}{100}) + 0.1(\frac{3}{100}) + 0.2(\frac{3}{100}) + 0.3(\frac{7}{100}) + 0.4(\frac{5}{100}) + 0.5(\frac{11}{100}) + 0.6(\frac{9}{100})  \\
+   & & + 0.7(\frac{9}{100}) + 0.8(\frac{14}{100}) + 0.9(\frac{19}{100}) + 1.0(\frac{19}{100}) \\
+   &=& 0.695 \\
+   & \approx & \ln 2,
+\end{eqnarray*}
+
+\noindent este resultado respalda lo obtenido anteriormente.
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X^Y$ (ejercicio 12 -- pág. 280).}
+\begin{tabular}{rcc}
+\hline
+\textbf{$x$}                       & \textbf{$p(x)$} \\
+\hline
+{\textbf{0}}  & 1/100                                   \\
+{\textbf{0.1}}  & 3/100                                 \\
+{\textbf{0.2}}  & 3/100                                 \\
+{\textbf{0.3}}  & 7/100                                 \\
+{\textbf{0.4}}  & 5/100                                 \\
+{\textbf{0.5}}  & 11/100                                 \\
+{\textbf{0.6}}  & 9/100                                 \\
+{\textbf{0.7}}  & 9/100                                 \\
+{\textbf{0.8}}  & 14/100                                 \\
+{\textbf{0.9}}  & 19/100                                 \\
+{\textbf{1.0}}  & 19/100                                 \\
+\hline
+\end{tabular}
+\label{c13}
+\end{center}
+\end{table}
+
+\bibliography{MiBiblio}
+\bibliographystyle{abbrv}
+
+\end{document} 
