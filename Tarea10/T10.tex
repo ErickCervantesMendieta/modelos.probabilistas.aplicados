@@ -1,0 +1,217 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=violet,
+    linkcolor=red,
+    urlcolor=blue}
+\spanishdecimal{.}
+
+\renewcommand{\spanishtablename}{Cuadro}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 10}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 10 \\ Validación (valor esperado y varianza)}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{03/11/2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Valor esperado de variables aleatorias discretas}
+
+\noindent \textbf{Ejercicio 1 -- pág. 247}\\
+
+Se tienen nueve opciones para este juego, si el jugador al sacar una carta obtiene al 2, 4, 6, 8 y 10 perderá \$1, si obtiene al 3, 5, 7, 9 ganará \$1, por lo que si definimos a $X$ como la cantidad de dinero que gana un jugador, entonces la distribución de probabilidad esta dada en el cuadro \ref{c0}, con $\mathbb{E} (X) = -1/9$. Luego, para este ejercicio se simularon en  R (Versión 4.0.2)\nocite{LenguajeR} cien mil extracciones de cartas, y conforme se visualizaba el resultado (par o impar) se iba sumando o restando uno, al final se obtuvo en promedio, una ganancia de -0.10782, es decir, se espera que al jugar se tenga una pérdida de aproximadamente \$0.11, que es lo que ya se había calculado ($\mathbb{E} (X)$). En la figura \ref{f1} se puede visualizar la distribución de probabilidad para los datos simulados, en donde, se puede apreciar que se ajustan a lo observado en el cuadro \ref{c0}.\\
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 1 -- pág. 247).}
+\begin{tabular}{rc}
+\hline
+\textbf{$x$}                       & \textbf{$p(x)$} \\
+\hline
+\textbf{-1}  & 5/9                                   \\
+\textbf{1}  & 4/9                                   \\
+\hline
+\end{tabular}
+\label{c0}
+\end{center}
+\end{table}
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=10 cm]{Fig/1_247.png}
+\caption{Distribución de probabilidad simulada para $X$ (ejercicio 1 -- pág. 247).}\label{f1}
+\end{center}
+\end{figure}
+
+\noindent \textbf{Ejercicio 6 -- pág. 247}\\
+
+Se demostró para este ejercicio que que $\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)$ (con $\mathbb{E} (X) = 245/36$, $\mathbb{E}(Y) = 0$ y $\mathbb{E}(XY) = 0$), por lo que, para este ejercicio se simularon cien mil lanzamientos de un dado (el cual fue lanzado dos veces) y se definió a $X =$ suma de los dos números observados al lanzar un dado dos veces, a $Y =$ resta de los dos números observados $(\#1 - \#2)$ al lanzar un dado dos veces y a $XY =$ como la multiplicación de las dos variables $X$ y $Y$.\\
+
+En la figura \ref{f2} se visualizan las distribuciones de probabilidad para las variables, las cuales reflejan el comportamiento presentado en la tarea 9. El promedio observado para la variables $X$ es igual a 6.99077, el promedio para $Y$ es igual a $-0.01221$ y finalmente, el promedio para $XY$ es $-0.07075$. Luego
+\begin{equation*}
+  \mathbb{E}(X)\mathbb{E}(Y) = (6.99077)(-0.01221) = -0.08543 \neq  -0.07075 = \mathbb{E}(XY),
+\end{equation*}
+
+\noindent por lo que no se puede asegurar que las variables $X$ y $Y$ sean independientes, sin embargo, estos valores son muy cercanos y podría decirse que $\mathbb{E}(XY) \approx \mathbb{E}(X)\mathbb{E}(Y)$.\\
+
+\begin{figure}
+ \centering
+ \subfloat[Distribución de probabilidad para $X$.]{
+   \label{f2a}
+    \includegraphics[width=0.45\textwidth]{Fig/6_247x.png}}
+  \subfloat[Distribución de probabilidad para $Y$.]{
+   \label{f2b}
+    \includegraphics[width=0.45\textwidth]{Fig/6_247y.png}}
+   \hfil
+  \subfloat[Distribución de probabilidad para $XY$.]{
+   \label{f2c}
+    \includegraphics[width=0.45\textwidth]{Fig/6_247xy.png}}
+ \caption{Distribuciones de probabilidad para el Ejercicio 6 -- pág. 247.}
+ \label{f2}
+\end{figure}
+
+\noindent \textbf{Ejercicio 15 -- pág. 249}\\
+
+Se tienen diez posibles formas de extraer las cinco bolas (2 de color oro (O) y 3 de color plata (P)) para este juego, y se encontró que $\mathbb{E}(X) = 2/10$. Se simularon cien mil extracciones de las cinco bolas sin reemplazo y cada una de estas extracciones se le asoció su ganancia correspondiente, la distribución de probabilidad encontrada se puede visualizar en la figura \ref{f3}. Se encontró que el valor de la ganancia obtenida es de \$0.20121, este valor es muy parecido al valor esperado presentado antes, por lo que se puede decir que si es un juego favorable para el jugador, ya que se espera obtener una pequeña ganancia cada que se juega, y se comprobó que esa ganancia es aproximadamente \$0.20.\\
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=10 cm]{Fig/15_249.png}
+\caption{Distribución de probabilidad simulada para $X$ (ejercicio 15 -- pág. 249).}\label{f3}
+\end{center}
+\end{figure}
+
+\section{Varianza de variables aleatorias discretas}
+
+\noindent \textbf{Ejercicio 1 -- pág. 263}\\
+
+Sea $X =$ escoger un número entre \{$-1$,0,1\}, se tiene que $\mathbb{E}(X) = 0$, $\mathbb{V}(X) = 2/3$ y $\mathbb{D}(X) = \sqrt{2/3}$. Luego, se simularon cien mil selecciones entre los números $-1$, 0 y 1. La distribución de probabilidad simulada se observa en la figura \ref{f4}, en donde se puede apreciar que los tres números tuvieron la misma probabilidad de ser seleccionados, por lo que se determinó el promedio, la varianza y la desviación estándar de los números seleccionados en la simulación, y se encontró lo siguiente: el valor de la media es $-0.0029$, el valor de la varianza es 0.6679 y el valor de la desviación estándar es 0.8173, los cuales son valores muy parecidos a los verdaderos valores esperados mencionados con anterioridad.\\
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=10 cm]{Fig/1_263.png}
+\caption{Distribución de probabilidad simulada para $X$ (ejercicio 1 -- pág. 263).}\label{f4}
+\end{center}
+\end{figure}
+
+\noindent \textbf{Ejercicio 9 -- pág. 264}\\
+
+Se define a $X$ como el valor observado (cara) al lanzar un dado, cuya probabilidad es proporcional al número observado, por lo que la distribución de probabilidad para $X$ se muestra en el cuadro \ref{c12} y cuyo valor esperado, varianza y desviación estándar son: $\mathbb{E}(X) = 13/3$,  $\mathbb{V}(X) = 20/9$ y $\mathbb{D}(X) = \sqrt{20/9}$, respectivamente. Luego entonces, se simularon cien mil lanzamientos de un dado \emph{no honesto} y la distribución de probabilidad simulada se presenta en la figura \ref{f5}, luego se procedió a calcular el promedio de los valores observados al realizar los lanzamientos y se encontró que es igual a 4.3373, el valor de la varianza: 2.2207 y  el valor de la desviación estándar es igual a 1.4902, con lo que se comprueba la veracidad de los resultados obtenidos con anterioridad.
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X$ (ejercicio 9 -- pág. 264).}
+\begin{tabular}{rc}
+\hline
+\textbf{$x$}                       & \textbf{$p(x)$} \\
+\hline
+{\textbf{1}}  & 1/21                                    \\
+{\textbf{2}}  & 2/21                                    \\
+{\textbf{3}}  & 3/21                                    \\
+{\textbf{4}}  & 4/21                                    \\
+{\textbf{5}}  & 5/21                                    \\
+{\textbf{6}}  & 6/21                                    \\
+\hline
+\end{tabular}
+\label{c12}
+\end{center}
+\end{table}
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=10 cm]{Fig/9_264.png}
+\caption{Distribución de probabilidad simulada para $X$ (ejercicio 9 -- pág. 264).}\label{f5}
+\end{center}
+\end{figure}
+
+\section{Variables aleatorias continuas}
+
+\noindent \textbf{Ejercicio 12 -- pág. 280}\\
+
+Sea $X$ y $Y$ variables aleatorias que provienen de una distribución uniforme $[0,1]$, se tiene que $Z = X^Y$ con $\mathbb{E} (X^Y) = \ln 2$. Para comprobar este resultado se simularon cien mil números $x$ y cien mil números $y$, de tal forma que se pudieran tener cien mil números de la forma $x^y$, la distribución de probabilidad se muestra en el cuadro \ref{c13}, en donde se supone una distribución discreta para los datos, así, el valor esperado de $X^Y$ se determina como sigue:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mathbb{E}(X^Y) &=& 0\left(\frac{1119}{100000}\right) + 0.1\left(\frac{3240}{100000}\right) + 0.2\left(\frac{4368}{100000}\right) + 0.3\left(\frac{5163}{100000}\right) + 0.4\left(\frac{6250}{100000}\right) \\
+   & & + 0.5\left(\frac{7609}{100000}\right) + 0.6\left(\frac{9036}{100000}\right) + 0.7\left(\frac{11160}{100000}\right) + 0.8\left(\frac{14271}{100000}\right) \\
+   & &  + 0.9\left(\frac{20167}{100000}\right) + 1.0\left(\frac{17617}{100000}\right) =  0.6947 \approx  \ln 2,
+\end{eqnarray*}
+
+\noindent este resultado respalda lo obtenido anteriormente. \nocite{Grinstead12}
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad para $X^Y$ (ejercicio 12 -- pág. 280).}
+\begin{tabular}{rcc}
+\hline
+\textbf{$x^y$}                       & \textbf{$p(x)$} \\
+\hline
+{\textbf{0}}  & 1119/100000                                   \\
+{\textbf{0.1}}  & 3240/100000                                 \\
+{\textbf{0.2}}  & 4368/100000                                 \\
+{\textbf{0.3}}  & 5163/100000                                 \\
+{\textbf{0.4}}  & 56250/100000                                 \\
+{\textbf{0.5}}  & 7609/100000                                 \\
+{\textbf{0.6}}  & 9036/100000                                 \\
+{\textbf{0.7}}  & 11160/100000                                 \\
+{\textbf{0.8}}  & 14271/100000                                 \\
+{\textbf{0.9}}  & 20167/100000                                 \\
+{\textbf{1.0}}  & 17617/100000                                 \\
+\hline
+\end{tabular}
+\label{c13}
+\end{center}
+\end{table}
+
+\bibliography{MiBiblio}
+\bibliographystyle{abbrv}
+
+\end{document} 
