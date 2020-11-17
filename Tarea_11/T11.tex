@@ -1,0 +1,299 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=violet,
+    linkcolor=red,
+    urlcolor=blue}
+\spanishdecimal{.}
+
+\renewcommand{\spanishtablename}{Cuadro}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 11}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 11 \\ Convolución, varianza y covarianza}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{17/11/2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Convolución}
+
+La \emph{convolución} es una operación matemática que combina dos señales para producir una tercera señal, algunas de sus aplicaciones se encuentran en la ingeniería, en esta sección se describe una aplicación en el pronóstico de demanda, ya que al tener una serie de tiempo, se necesita conocer valores futuros, por lo que se describe el \textbf{promedio móvil ponderado}.\\
+
+Esta técnica es una variante del método de promedios móviles, solo que en este caso se tiene la posibilidad de modificar las ponderaciones que tiene cada uno de los datos en el cálculo del promedio, por lo general, el dato con mayor ponderación es el más reciente, sin embargo, la asignación de las ponderaciones puede ser arbitrario o con base a la experiencia.\\
+
+La ecuación a utilizar es la siguiente:
+\begin{equation*}
+  \hat{X}_t = \sum^n_{i=1} C_i x_{t-i},
+\end{equation*}
+\noindent con $\hat{X}_t =$ promedio de la demanda en el periodo $t$, $C_i$ es el factor de ponderación, $x_{t-i}$ es la demanda real de los periodos anteriores a $t$ y $n$ es el número de datos.\\
+
+En \cite{Grinstead12} se define a la convolución de $m_1(x)$ y $m_2(x)$ como la función de distribución $m_3$ dada por:
+\begin{equation*}
+  m_3(j) = \sum_k m_1(k)\cdot m_2(j-k),
+\end{equation*}
+\noindent de esta forma se podría decir que $\hat{X}_t$ se considera como $m_3(j)$, $C_i$ como $m_1(k)$ y a $x_{t-i}$ como $m_2(j-k)$. Por ejemplo, suponga que desea que desea prónosticar el valor de compra del dólar para la próxima semana, para esto en el cuadro \ref{dolar} se presenta el valor de compra del dólar del 9 al 16 de noviembre del 2020, por lo que si se considera un periodo igual a 4, con $C_1 = 0.15$, $C_2 = 0.20$, $C_3 = 0.30$ y $C_4 = 0.35$, se tiene que, para prónosticar el valor del día viernes 13 de noviembre es necesario realizar las siguientes operaciones:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \text{viernes}_{13} &=& 0.15(\text{lunes}_{11}) + 0.20(\text{martes}_{10}) + 0.30(\text{miércoles}_{11}) + 0.35(\text{jueves}_{12}) \\
+   &=& 0.15(20.08833) + 0.20(20.0604) + 0.30(20.1647) + 0.35(20.2442) \\
+   &=& 20.1602,
+\end{eqnarray*}
+\noindent este procedimiento se vuelve a repetir, considerando siempre los valores reales de compra del dólar, y en la cuarta iteración se obtendría que el valor de compra del dólar el día lunes 16 de noviembre del 2020 va a ser de \$20.1335.
+
+\begin{table}[]
+\begin{center}
+\caption{Valor de compra del dólar en la semana del 9 al 15 de noviembre del 2020.}
+\begin{tabular}{l|r}
+Día        & Compra (\$) \\
+\hline
+09/11/2020 & 20.0833     \\
+10/11/2020 & 20.0604     \\
+11/11/2020 & 20.1647     \\
+12/11/2020 & 20.2442     \\
+13/11/2020 & 20.1172     \\
+14/11/2020 & 20.1151     \\
+15/11/2020 & 20.111      \\
+16/11/2020 & ¿?
+\end{tabular}
+\label{dolar}
+\end{center}
+\end{table}
+
+
+
+
+\section{Prueba $\chi^2$}
+
+Se está interesado saber si la cantidad de alumnos matriculados de la República Mexicana en los diferentes niveles de escolaridad (primaria, secundaria, media superior y superior) tiene que ver con los diferentes estados del país, ya que algunos dirigentes aseguran que se está apoyando a los niños y jóvenes con becas para que se sigan preparando y no tengan que emigrar a otro lugar. En este caso se plantea la hipótesis nula: No existe relación alguna entre el número de alumnos matriculados con algún estado del país. La tabla de contigencia se muestra en el cuadro \ref{esco}.\\
+
+\begin{table}[]
+\begin{center}
+\caption{Tabla de contigencia para la cantidad de alumnos matriculados en los diferentes niveles de escolaridad de algunos estados (INEGI).}
+\begin{tabular}{c|rrrr}
+\multicolumn{1}{l}{} & \textbf{Primaria} & \textbf{Secundaria} & \textbf{Media Superior} & \textbf{Superior} \\
+\hline
+\textbf{CDMX}        & 805,705           & 436,827             & 466,232                 & 560,680           \\
+\textbf{Nuevo León}  & 580,968           & 271,699             & 191,339                 & 229,086           \\
+\textbf{Tlaxcala}    & 152,880           & 74,396              & 56,597                  & 37,521            \\
+\textbf{Veracruz}    & 834,274           & 388,304             & 316,662                 & 197,118
+\end{tabular}
+\label{esco}
+\end{center}
+\end{table}
+
+Al implementar la prueba $\chi^2$ en el entorno R (Versión 4.0.2) \cite{LenguajeR}, se obtuvo un valor $p < 2.2\times10^{-16}$, por lo que hay suficiente evidencia para decir que si \emph{hay relación} entre el número de matricula en los diferentes niveles de edución con algunos estados de la República Mexicana, es decir, parece observarse un mismo comportamiento en la matricula, sin importar si el estado tiene más/menos población (ver figura \ref{f1}).
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=12 cm]{Fig/mosaico.png}
+\caption{Gráfica de mosaico para la cantidad de alumnos matriculados en los diferentes niveles de escolaridad de algunos estados.}\label{f1}
+\end{center}
+\end{figure}
+
+\section{Propiedades covarianza}
+
+\noindent $i)$ Demuestre que $\text{Cov}[aX+b,cY+d] = ac\text{Cov}[X,Y]$. Para demostrar lo anterior, recurrimos a la definición de covarianza: $\text{Cov}[X,Y] = \mathbb{E} [XY] - \mathbb{E} (X)\mathbb{E} [Y]$ (Véase \cite{Walpole12}), y considerando a $a$, $b$, $c$ y $d$ como constantes, tenemos entonces:
+
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \text{Cov}[aX+b,cY+d]  &=& \mathbb{E}[(aX+b)(cY+d)] - \mathbb{E}[aX+b] \mathbb{E}[cY+d] \\
+   &=& \mathbb{E}[acXY + adX + bcY + bd] - \{(\mathbb{E}[aX] + \mathbb{E}[b])(\mathbb{E}[cY] + \mathbb{E}[d])\} \\
+   &=& \mathbb{E}[acXY] + \mathbb{E}[adX] + \mathbb{E}[bcY] + \mathbb{E}[bd] - \left(\mathbb{E}[aX]\mathbb{E}[cY] + \mathbb{E}[aX]\mathbb{E}[d] \right.\\
+   & & \left. +  \mathbb{E}[b]\mathbb{E}[cY] + \mathbb{E}[b]\mathbb{E}[d]\right) \\
+   &=& ac \mathbb{E}[XY] + ad \mathbb{E}[X] + bc \mathbb{E}[Y] + bd - ac\mathbb{E}[X]\mathbb{E}[Y] - ad \mathbb{E}[X] \\
+   & & -  bc \mathbb{E}[Y] - bd \\
+   &=& ac \mathbb{E}[XY] - ac \mathbb{E}[X]\mathbb{E}[Y] \\
+   &=& ac (\mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]) \\
+   &=& ac \text{Cov}[X,Y].
+\end{eqnarray*}
+
+En \cite{Walpole12} se enuncia el siguiente ejemplo: Se seleccionan al azar dos repuestos para bolígrafo de una caja que contiene tres repuestos azules, dos rojos y tres verdes. Si $X$ es el número de repuestos azules y $Y$ es el número de repuestos rojos seleccionados, entonces la función de probabilidad conjunta esta dada por:
+\begin{equation*}
+  f(x,y) = \frac{\left(
+                         \begin{array}{c}
+                           3 \\
+                           x \\
+                         \end{array}
+                       \right) \left(
+                                 \begin{array}{c}
+                                   2 \\
+                                   y \\
+                                 \end{array}
+                               \right)
+                       \left(
+                         \begin{array}{c}
+                           3 \\
+                           2-x-y \\
+                         \end{array}
+                       \right)
+                        }{\left(
+                                  \begin{array}{c}
+                                    8 \\
+                                    2 \\
+                                  \end{array}
+                                \right)
+                       },
+\end{equation*}
+
+\noindent para $x = 0, 1, 2$; $y = 0, 1, 2$ y $0\leq x+y \leq 2$, luego entonces, la distribución de probabilidad conjunta se muestra en el cuadro \ref{dist}. Los valores esperados de $X$, $Y$ y $XY$ se muestran en seguida:
+\begin{equation*}
+  \mathbb{E}(X) = 0\left(\frac{5}{28}\right) + 1\left(\frac{15}{28}\right) + 2\left(\frac{3}{28}\right) = \frac{3}{4},
+\end{equation*}
+\begin{equation*}
+  \mathbb{E}(Y) = 0\left(\frac{15}{28}\right) + 1\left(\frac{3}{7}\right) + 2\left(\frac{1}{28}\right) = \frac{1}{2},
+\end{equation*}
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+   \mathbb{E}(XY) &=& \sum^2_{x=0} \sum^2_{x=0} xy f(x,y) \\
+   &=& (0)(0)f(0,0) + (0)(1)f(0,1) + (0)(2)f(0,2) + (1)(0)f(1,0) \\
+   && + (1)(1)f(1,1) + (2)(0)f(2,0) = \frac{3}{14}.
+\end{eqnarray*}
+
+Luego, definimos a $f(X) = 3X - 1$ y a $g(Y) = 2Y+5$, por lo que se tiene lo siguiente:
+\begin{equation*}
+  \mu_{3X - 1} = 3 \mathbb{E}(X) - 1 = 3\left(\frac{3}{4}\right) - 1 = \frac{5}{4},
+\end{equation*}
+\begin{equation*}
+  \mu_{2Y +5} = 2 \mathbb{E}(Y) + 5 = 2\left(\frac{1}{2}\right) + 5 = 6,
+\end{equation*}
+
+luego, para calcular $\text{Cov}[3X-1,2Y+5]$ tenemos que:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \text{Cov}[3X-1,2Y+5] &=& \mathbb{E}[((3X - 1) - \mu_{3X - 1})((2Y + 5) - \mu_{2Y +5})] \\
+   &=& \mathbb{E}\left[\left((3X-1)-\frac{5}{4}\right)\left((2Y+5)-6\right)\right] \\
+   &=& \mathbb{E}\left[\left(3X-\frac{9}{4}\right)\left(2Y - 1\right)\right] \\
+   &=& \mathbb{E}\left[6XY - 3X -\frac{9}{2}Y + \frac{9}{4}\right] \\
+   &=& 6\mathbb{E}[XY] - 3 \mathbb{E}[X] - \frac{9}{2}\mathbb{E}[Y] + \frac{9}{4} \\
+   &=& 6\left(\frac{3}{14}\right) - 3\left(\frac{3}{4}\right) - \frac{9}{2}\left(\frac{1}{2}\right) + \frac{9}{4} \\
+   &=& -\frac{27}{28}.
+\end{eqnarray*}
+
+Se tiene por definición que $ac \text{Cov}[X,Y] = ac (\mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y])$, entonces:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  3(2) \text{Cov}[X,Y] &=& 3(2) \left(\frac{3}{14}-\left(\frac{3}{4}\right)\left(\frac{1}{2}\right)\right) \\
+   &=& 6 \left(\frac{3}{14} - \frac{3}{8}\right) = 6 \left(-\frac{9}{56}\right) = -\frac{27}{28},
+\end{eqnarray*}
+
+\noindent luego entonces: $\text{Cov}[3X-1,2Y+5] = 3(2) \text{Cov}[X,Y]$.\\
+
+\begin{table}[]
+\begin{center}
+\caption{Distribución de probabilidad conjunta para el ejemplo del bolígrafo.}
+\begin{tabular}{cccccc}
+                         &  \multirow{2}{*}{$f(x,y)$}         & \multicolumn{3}{c}{x} & \multirow{2}{*}{Totales por renglón} \\ \cline{3-5}
+                         &        & {\color[HTML]{3531FF}0}     & {\color[HTML]{3531FF}1}      & {\color[HTML]{3531FF}2}    &                                      \\ \hline
+\multirow{3}{*}{$y$}       & {\color[HTML]{CB0000}0}            & 3/28  & 9/28   & 3/28 & 15/28                                \\
+                         & {\color[HTML]{CB0000}1}            & 3/14  & 3/14   & 0    & 3/7                                  \\
+                         & {\color[HTML]{CB0000}2}            & 1/28  & 0      & 0    & 1/28                                 \\ \hline
+\multicolumn{2}{c}{Totales por columna} & 5/28  & 15/28  & 3/28 & 1                                    \\ \hline
+\end{tabular}
+\label{dist}
+\end{center}
+\end{table}
+
+\noindent $ii)$ Demuestre que $\text{Var}[X + Y] = \text{Var}[X] + \text{Var}[Y] + 2 \text{Cov}[X,Y]$. Para demostrar lo anterior, se define a $\text{Cov}[X,Y] = \mathbb{E}[(X - \mu_X)(Y - \mu_Y)]$ y $\text{Var}[X] = \mathbb{E}[(X - \mu_X)^2]$ (Véase \cite{Walpole12}). Luego:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \text{Var}[X+Y] &=& \mathbb{E}\left[\left\{(X + Y) - (\mu_X + \mu_Y)\right\}^2\right] \\
+   &=& \mathbb{E}\left[\left\{(X - \mu_X) + (Y - \mu_Y)\right\}^2\right] \\
+   &=& \mathbb{E}\left[(X - \mu_X)^2 + 2(X - \mu_X)(Y - \mu_Y) + (Y - \mu_Y)^2\right] \\
+   &=& \mathbb{E}\left[(X - \mu_X)^2\right] + 2\mathbb{E}\left[(X - \mu_X)(Y - \mu_Y)\right] + \mathbb{E}\left[(Y - \mu_Y)^2\right] \\
+   &=& \text{Var}[X] + \text{Var}[Y] + 2 \text{Cov}[X,Y].
+\end{eqnarray*}
+
+Del ejercicio de los \emph{bolígrafos} mencionado con anterioridad, en el cual sse definió a $X$ como el número de repuestos azules y $Y$ como el número de repuestos rojos, se tiene que el valor esperado de $X^2$, $Y^2$ y $X+Y$ es:
+\begin{equation*}
+  \mathbb{E}(X^2) = 0^2\left(\frac{5}{28}\right) + 1^2\left(\frac{15}{28}\right) + 2^2\left(\frac{3}{28}\right) = \frac{27}{28},
+\end{equation*}
+\begin{equation*}
+  \mathbb{E}(Y^2) = 0^2\left(\frac{15}{28}\right) + 1^2\left(\frac{3}{7}\right) + 2^2\left(\frac{1}{28}\right) = \frac{4}{7},
+\end{equation*}
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+   \mathbb{E}(X+Y) &=& \sum^2_{x=0} \sum^2_{x=0} (x+y) f(x,y) \\
+   &=& (0+0)f(0,0) + (0+1)f(0,1) + (0+2)f(0,2) + (1+0)f(1,0) \\
+   && + (1+1)f(1,1) + (2+0)f(2,0)\\
+   &=& f(0,1) + 2f(0,2) + f(1,0) + 2 f(1,1) + 2f(2,0) \\
+   &=& \frac{9}{28} + 2 \left(\frac{3}{28}\right) + \frac{3}{14} + 2\left(\frac{3}{14}\right) + 2\left(\frac{1}{28}\right)\\
+   &=& \frac{9}{28} + \frac{6}{28} +\frac{3}{14} + \frac{6}{14} + \frac{2}{28} \\
+   &=& \frac{5}{4},
+\end{eqnarray*}
+
+\noindent luego se tiene que:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \text{Var}[X+Y] &=&  \mathbb{E}\left[(X+Y)^2\right] - \mu^2_{x+y} \\
+  &=& \mathbb{E}[X^2 + 2XY + Y^2] - \left(\frac{5}{4}\right)^2 \\
+  &=& \mathbb{E}[X^2] + 2\mathbb{E}[XY] + \mathbb{E}[Y^2] - \left(\frac{25}{16}\right) \\
+  &=& \frac{27}{28} + 2\left(\frac{3}{14}\right) + \frac{4}{7} - \left(\frac{25}{16}\right) \\
+  &=& \frac{45}{112}.
+\end{eqnarray*}
+
+Por otra parte, la varianza de $X$, la varianza de $Y$ y la covarianza de $X$ y $Y$ se determinan como sigue:
+\begin{equation*}
+  \text{Var}[X] = \mathbb{E}[X^2] - \left(\frac{3}{4}\right)^2 = \frac{45}{112},
+\end{equation*}
+\begin{equation*}
+  \text{Var}[Y] = \mathbb{E}[Y^2] - \left(\frac{1}{2}\right)^2 = \frac{9}{28},
+\end{equation*}
+\begin{equation*}
+  \text{Cov}[X,Y] = \mathbb{E}[XY] - \mu_X \mu_Y = -\frac{9}{56},
+\end{equation*}
+
+\noindent por lo tanto $\text{Var}[X] + \text{Var}[Y] + 2 \text{Cov}[X,Y] = 45/112 = \text{Var}[X+Y]$.
+
+\bibliography{MiBiblio}
+\bibliographystyle{abbrv}
+
+\end{document} 
