@@ -1,0 +1,418 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=violet,
+    linkcolor=red,
+    urlcolor=blue}
+\spanishdecimal{.}
+
+\renewcommand{\spanishtablename}{Cuadro}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 12}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 12 \\ Momentos}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{24/11/2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Procesos de ramificación}
+
+\noindent \textbf{Ejercicio 1 -- pág. 392}\\
+
+\noindent \textbf{a)} $p_0 = 1/2$, $p_1 = 1/4$, $p_2 = 1/4$. El valor esperado de un experimento es \nocite{Grinstead12} $h(z) = p_0 + p_1 z + p_2 z^2$. La función generadora de probabilidad $d = p_0+p_1 d +p_2 d^2$ y el número esperado $m = p1 + 2p_2 z$ de descendientes producidos por \emph{un} solo padre, se presentan a continuación:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  d &=& \frac{1}{2} + \frac{1}{4} d + \frac{1}{4} d^2 \\
+  m &=& \frac{1}{4} + 2\left(\frac{1}{4}\right) (1) = 0.75,
+\end{eqnarray*}
+\noindent luego, para calcular las probabilidades de morir en cada generación, se tiene que:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  d_0 &=& 0 \\
+  d_1 &=& h(d_0) = 0.5 + 0.25(0) + 0.25 (0)^2 = 0.5 \\
+  d_2 &=& h(d_1) = 0.5 +0.25 (0.5) + 0.25 (0.5)^2 = 0.6875 \\
+  \vdots &=& \vdots
+\end{eqnarray*}
+
+En el cuadro \ref{ceje1} se pueden visualizar las probabilidades de morir de diez generaciones, y como $p_0 > p_2$ y $m < 1$, entonces se sigue que $d = 1$, lo cual se respalda con el comportamiento creciente de $d$ presentada en dicho cuadro.\\
+\begin{table}[]
+\begin{center}
+\caption{Probabilidades de morir en la $i-$ésima generación (Ejercicio 1 -- pág. 392 (a)).}
+\begin{tabular}{c|c}
+\textbf{Generación} & \textbf{\begin{tabular}[c]{@{}c@{}}Probabilidad\\ de morir\end{tabular}} \\
+\hline
+1                   & 0.5000                                                                   \\
+2                   & 0.6875                                                                   \\
+3                   & 0.7900                                                                   \\
+4                   & 0.8536                                                                   \\
+5                   & 0.8955                                                                   \\
+6                   & 0.9243                                                                   \\
+7                   & 0.9447                                                                   \\
+8                   & 0.9593                                                                   \\
+9                   & 0.9699                                                                   \\
+10                  & 0.9776
+\end{tabular}
+\label{ceje1}
+\end{center}
+\end{table}
+
+\noindent \textbf{b)} $p_0 = 1/3$, $p_1 = 1/3$, $p_2 = 1/3$. El valor esperado de un experimento es $h(z) = 1/3 + (1/3) z + (1/3) z^2$. La función generadora de probabilidad $d$ y el número esperado $m$ de descendientes producidos por \emph{un} solo padre, se presentan a continuación:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  d &=& \frac{1}{3} + \frac{1}{3} d + \frac{1}{3} d^2 \\
+  m &=& \frac{1}{3} + 2\left(\frac{1}{3}\right) (1) = 1,
+\end{eqnarray*}
+\noindent luego, para calcular las probabilidades de morir en cada generación, se tiene que:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  d_0 &=& 0 \\
+  d_1 &=& h(d_0) = 0.33 + 0.33(0) + 0.33 (0)^2 = 0.3333 \\
+  d_2 &=& h(d_1) = 0.33 +0.33 (0.33) + 0.33 (0.33)^2 = 0.4814 \\
+  \vdots &=& \vdots
+\end{eqnarray*}
+
+En el cuadro \ref{ceje2} se pueden visualizar las probabilidades de morir de diez generaciones, y como $p_0 = p_2$ y $m = 1$, entonces se sigue que $d = 1$, lo cual se respalda con el comportamiento creciente de $d$ presentada en dicho cuadro.\\
+\begin{table}[]
+\begin{center}
+\caption{Probabilidades de morir en la $i-$ésima generación (Ejercicio 1 -- pág. 392 (b)).}
+\begin{tabular}{c|c}
+\textbf{Generación} & \textbf{\begin{tabular}[c]{@{}c@{}}Probabilidad\\ de morir\end{tabular}} \\
+\hline
+1                   & 0.3333                                                                   \\
+2                   & 0.4818                                                                   \\
+3                   & 0.5711                                                                   \\
+4                   & 0.6324                                                                   \\
+5                   & 0.6775                                                                   \\
+6                   & 0.7121                                                                   \\
+7                   & 0.7398                                                                   \\
+8                   & 0.7623                                                                   \\
+9                   & 0.7811                                                                   \\
+10                  & 0.7971
+\end{tabular}
+\label{ceje2}
+\end{center}
+\end{table}
+
+\noindent \textbf{c)} $p_0 = 1/3$, $p_1 = 0$, $p_2 = 2/3$. El valor esperado de un experimento es $h(z) = 1/3 + (0) z + (2/3) z^2$. La función generadora de probabilidad $d$ y el número esperado $m$ de descendientes producidos por \emph{un} solo padre, se presentan a continuación:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  d &=& \frac{1}{3} + (0) d + \frac{2}{3} d^2 \\
+  m &=& 0 + 2\left(\frac{2}{3}\right) (1) = 1.3333,
+\end{eqnarray*}
+\noindent luego, para calcular las probabilidades de morir en cada generación, se tiene que:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  d_0 &=& 0 \\
+  d_1 &=& h(d_0) = 0.33 + 0(0) + 0.67 (0)^2 = 0.3333 \\
+  d_2 &=& h(d_1) = 0.33 +0 (0.33) + 0.67 (0.33)^2 = 0.4074 \\
+  \vdots &=& \vdots
+\end{eqnarray*}
+
+En el cuadro \ref{ceje3} se pueden visualizar las probabilidades de morir de diez generaciones, y como $p_0 < p_2$ y $m > 1$, entonces se sigue que $d = p_o / p_2 = (1/3)\div(2/3) = 0.5$, lo cual implicaría que el valor de $d = 0.5$.\\
+\begin{table}[]
+\begin{center}
+\caption{Probabilidades de morir en la $i-$ésima generación (Ejercicio 1 -- pág. 392 (c)).}
+\begin{tabular}{c|c}
+\textbf{Generación} & \textbf{\begin{tabular}[c]{@{}c@{}}Probabilidad\\ de morir\end{tabular}} \\
+\hline
+1                   & 0.3333                                                                   \\
+2                   & 0.4074                                                                   \\
+3                   & 0.4439                                                                   \\
+4                   & 0.4647                                                                   \\
+5                   & 0.4773                                                                   \\
+6                   & 0.4852                                                                   \\
+7                   & 0.4903                                                                   \\
+8                   & 0.4936                                                                   \\
+9                   & 0.4958                                                                   \\
+10                  & 0.4972
+\end{tabular}
+\label{ceje3}
+\end{center}
+\end{table}
+
+\noindent \textbf{d)} $p_j = 1/2^{j+1}$ con $j = 0, 1, 2, \ldots$, luego:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h(z) &=& p_0 + p_1 z + p_2 z^2 + \ldots \\
+   &=& \frac{1}{2^{0+1}} + \frac{1}{2^{1+1}} z + \frac{1}{2^{2+1}} z^2 + \ldots \\
+   &=& \frac{1}{2} + \sum_{n=1}^\infty\frac{1}{2^{n+1}} z^n \\
+   &=& \frac{1}{2} - \frac{0.5z}{z-2},
+\end{eqnarray*}
+\noindent luego,
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h'(z) &=& - \left(\frac{(z-2)(0.5) - 0.5z(1)}{(z-2)^2}\right) \\
+   &=& - \left(\frac{0.5(z-2) - 0.5z}{(z-2)^2}\right), 
+\end{eqnarray*}
+\noindent luego,
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h'(1) &=& m \\
+   &=& - \left(\frac{0.5(1-2) - 0.5(1)}{(1-2)^2}\right) \\
+   &=& -\left(\frac{-0.5-0.5}{1}\right) = 1, 
+\end{eqnarray*}
+\noindent así, como $m = 1$ se implica que $d =1$, como puede observarse en la figura \ref{f1}.\\
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=12 cm]{Fig/1_392.png}
+\caption{Gráfica de $z$ (Ejercicio 1 -- pág. 392 (d)).}\label{f1}
+\end{center}
+\end{figure}
+
+\noindent \textbf{e)} $p_j = (1/3)(2/3)^j$ con $j = 0, 1, 2, \ldots$, luego:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h(z) &=& p_0 + p_1 z + p_2 z^2 + \ldots \\
+   &=& \left(\frac{1}{3}\right)\left(\frac{2}{3}\right)^0 + \left(\frac{1}{3}\right)\left(\frac{2}{3}\right)^1 z + \left(\frac{1}{3}\right)\left(\frac{2}{3}\right)^2 z^2 + \ldots \\
+   &=& \frac{1}{3} + \sum_{n=1}^\infty \left(\frac{1}{3}\right)\left(\frac{2}{3}\right)^n z^n \\
+   &=& \frac{1}{3} - \frac{(2/3)z}{2z-3},
+\end{eqnarray*}
+\noindent luego,
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h'(z) &=& - \left(\frac{(2z-3)(2/3) - (2/3)z(2)}{(2z-3)^2}\right) \\
+   &=& - \left(\frac{(2/3)(2z-3) - (4/3)z}{(2z-3)^2}\right),
+\end{eqnarray*}
+\noindent luego,
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h'(1) &=& m \\
+   &=& - \left(\frac{(2/3)(2(1)-3) - (4/3)(1)}{(2(1)-3)^2}\right) \\
+   &=& -\left(\frac{-(2/3)-(4/3)}{(-1)^2}\right) = 2,
+\end{eqnarray*}
+\noindent así, como $m > 1$ se implica que $d = 0.5$, como puede observarse en la figura \ref{f2}.\\
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=12 cm]{Fig/1_392e.png}
+\caption{Gráfica de $z$ (Ejercicio 1 -- pág. 392 (e)).}\label{f2}
+\end{center}
+\end{figure}
+
+\noindent \textbf{f)} $p_j = e^{-2}(2^j/j!)^j$ con $j = 0, 1, 2, \ldots$, luego:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h(z) &=& p_0 + p_1 z + p_2 z^2 + \ldots \\
+   &=& e^{-2}\left(\frac{2^0}{0!}\right) + e^{-2}\left(\frac{2^1}{1!}\right) + e^{-2}\left(\frac{2^2}{2!}\right) + \ldots \\
+   &=& e^{-2} \sum_{n=0}^\infty \left(\frac{2^n}{n!}\right) z^n \\
+   &=& e^{-2}e^{2z} = e^{2z-2},
+\end{eqnarray*}
+\noindent luego,
+\begin{equation*}
+  h'(z) = 2 e^{2z-2},
+\end{equation*}
+\noindent luego,
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  h'(1) &=& m \\
+   &=& 2 e^{2(1)-2} \\
+   &=& 2,
+\end{eqnarray*}
+\noindent así, como $m > 1$ se implica que $d = 0.2$, como puede observarse en la figura \ref{f3}.\\
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=12 cm]{Fig/1_392f.png}
+\caption{Gráfica de $z$ (Ejercicio 1 -- pág. 392 (f)).}\label{f3}
+\end{center}
+\end{figure}
+
+\noindent \textbf{Ejercicio 3 -- pág. 392}\\
+
+\noindent \textbf{a)} $p_0 = 1/2$, $p_1 = 0$, $p_2 = 1/2$. Sea $m = p_1 + 2 p_2$ el número esperado de letras que vendió, entonces: $m = 0 + 2 (1/2) = 1$. Por lo tanto la \emph{ganancia esperada} esta dada por:
+\begin{equation*}
+  50(1 + 1^{12}) - 100 = 0,
+\end{equation*}
+\noindent la probabilidad de que reciba al menos un pago de la duodécima generación es $1 - d_{12}$. Al realizar el calculo se tiene que $d_{12} = 0.8791$. Por lo tanto, $1 - d_{12} = 0.1209$ es la probabilidad de que reciba algún bono. Nótese que esta probabilidad es \emph{baja}.\\
+
+\noindent \textbf{b)} $p_0 = 1/6$, $p_1 = 1/2$, $p_2 = 1/3$. Sea $m$ el número esperado de letras que vendió, entonces: $m = (1/2) + 2 (1/3) = 7/6$. Por lo tanto la \emph{ganancia esperada} esta dada por:
+\begin{equation*}
+  50\left(\left(\frac{7}{6}\right) + \left(\frac{7}{6}\right)^{12}\right) - 100 \approx 276,
+\end{equation*}
+\noindent la probabilidad de que reciba al menos un pago de la duodécima generación es $1 - d_{12}$. Al realizar el calculo se tiene que $d_{12} = 0.4743$. Por lo tanto, $1 - d_{12} = 0.5257$ es la probabilidad de que reciba algún bono. Nótese que es \emph{algo probable} recibir un pago en la duodécima generación.\\
+
+\noindent \textbf{c)} Para mostrar el caso en el que no se espera obtener ganancias, sea $p_0 = 3/5$ ($p > 1/2$), $p_1 = 1/6$, $p_2 = 7/30$. Sea $m$ el número esperado de letras que vendió, entonces: $m = (1/6) + 2 (7/30) = 19/30 < 1$, por lo que el juego es desfavorable. Luego, la \emph{ganancia esperada} esta dada por:
+\begin{equation*}
+  50\left(\left(\frac{17}{30}\right) + \left(\frac{17}{30}\right)^{12}\right) - 100 \approx -72,
+\end{equation*}
+\noindent la cual representa una pérdida.\\
+
+\noindent \textbf{Ejercicio 1 -- pág. 401}\\
+
+\noindent \textbf{a)} Sea $f_X(x) = 1/2$. La función generadora de momentos esta dada por:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  g(t) &=& \int^2_0 e^{tx}\left(\frac{1}{2}\right) dx \\
+   &=& \frac{1}{2} \int^2_0 e^{tx} dx \\
+   &=& \frac{1}{2} \left[ \frac{e^{tx}}{t}\right]^2_0  \\
+   &=& \frac{1}{2t} \left[e^{2t} - e^0\right] \\
+   &=& \frac{e^{2t} - 1}{2t}.
+\end{eqnarray*}
+
+\noindent \textbf{b)} Sea $f_X(x) = (1/2)x$. La función generadora de momentos esta dada por:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  g(t) &=& \int^2_0 e^{tx}\left(\frac{1}{2}x\right) dx \\
+   &=& \frac{1}{2} \int^2_0 x e^{tx} dx \\
+   &=& \frac{1}{2} \left.\left[ \frac{x e^{tx}}{t}\right|^2_0 - \int^2_0 \frac{e^{tx}}{t} dx\right]  \\
+   &=& \frac{1}{2} \left[ \frac{x e^{tx}}{t} -\frac{1}{t} \left(\frac{e^{tx}}{t}\right)\right]^2_0 \\
+   &=& \frac{1}{2t} \left[\left(2e^{2t} - \frac{e^{2t}}{t}\right) - \left(0e^0 - \frac{e^0}{t}\right)\right]\\
+   &=& \frac{1}{2t} \left[2e^{2t} - \frac{e^{2t}}{t} + \frac{1}{t}\right] \\
+   &=& \frac{2te^{2t} - e^{2t} + 1}{2t^2}.
+\end{eqnarray*}
+
+\noindent \textbf{c)} Sea $f_X(x) = 1 - (1/2)x$. La función generadora de momentos esta dada por:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  g(t) &=& \int^2_0 e^{tx}\left(1 - \frac{1}{2}x\right) dx \\
+   &=& \left(1 - \frac{1}{2}x\right)\left.\frac{e^{tx}}{t}\right|^2_0 - \int^2_0 \left(-\frac{1}{2}\right) \frac{e^{tx}}{t} dx \\
+   &=& \left(1 - \frac{1}{2}x\right)\left.\frac{e^{tx}}{t}\right|^2_0 + \frac{1}{2t} \int^2_0 e^{tx} dx  \\
+   &=& \left[\left(1 - \frac{1}{2}x\right)\frac{e^{tx}}{t} + \frac{1}{2t} \left(\frac{e^{tx}}{t}\right)\right]^2_0  \\
+   &=& \frac{e^{2t}}{2t^2} - \left(\frac{1}{t} + \frac{1}{2t^2}\right) \\
+   &=& \frac{e^{2t} - 2t - 1}{2t^2}.
+\end{eqnarray*}
+
+\noindent \textbf{d)} Sea $f_X(x) = |1 - x|$. La función generadora de momentos esta dada por:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  g(t) &=& \int^2_0 e^{tx}|1 - x| dx \\
+    &=& \int^1_0 e^{tx}(1 - x) dx + \int^2_1 e^{tx}(x - 1) dx \\
+    &=& (1-x)\left.\frac{e^{tx}}{t}\right|^1_0 + \frac{1}{t} \int^0_1 e^{tx} dx + (1-x)\left.\frac{e^{tx}}{t}\right|^2_1 - \frac{1}{t} \int^2_1 e^{tx} dx \\
+    &=& \frac{e^t - t - 1}{t^2} + \frac{te^{2t} - e^{2t} + e^t}{t^2} \\
+    &=& \frac{te^{2t} - e^{2t} + 2e^t -t - 1}{t^2}.
+\end{eqnarray*}
+
+\noindent \textbf{e)} Sea $f_X(x) = (3/8) x^2$. La función generadora de momentos esta dada por:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  g(t) &=& \int^2_0 e^{tx}\left(\frac{3}{8} x^2\right) dx \\
+  &=& \frac{3}{8}  \int^2_0 e^{tx} x^2 dx \\
+  &=& \frac{3}{8} \left(\frac{4t^2 e^{2t} - 4t e^{2t} +2 e^{2t} - 2}{t^3}\right) \\
+  &=& \frac{3(2)}{4(2)} \left(\frac{2t^2 e^{2t} - 2t e^{2t} + e^{2t} -1}{t^3}\right) \\
+  &=& \frac{3}{4} \left(\frac{2t^2 e^{2t} - 2t e^{2t} + e^{2t} -1}{t^3}\right).
+\end{eqnarray*}
+
+\noindent \textbf{Ejercicio 6 -- pág. 402}\\
+
+Sea la función característica $k_X (\tau) = e^{-|\tau|}$ con $-\infty < \tau < \infty$, por demostrar que: $f_X (x) = \frac{1}{\pi (1 + x^2)}$. Luego:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  f_X (x) &=& \frac{1}{2\pi} \int^\infty_{-\infty} e^{-i\tau x} e^{-| \tau |} d\tau \\
+   &=& \frac{1}{2\pi} \left[\int^0_{-\infty} e^{-i\tau x + \tau} d\tau + \int^\infty_0 e^{-i\tau x - \tau} d\tau\right] \\
+   &=& \frac{1}{2\pi} \left[\int^0_{-\infty} e^{\tau(1-i x)} d\tau + \int^\infty_0 e^{-\tau(ix + 1)} d\tau\right] \\
+   &=& \frac{1}{2\pi} \left[\left.\lim_{a\rightarrow -\infty} \frac{e^{\tau (1-ix)}}{1-ix}\right|^0_a - \left.\lim_{b\rightarrow \infty} \frac{e^{- \tau (ix + 1)}}{ix + 1}\right|^b_0\right] \\
+   &=& \frac{1}{2\pi} \left[\lim_{a\rightarrow -\infty}\left(\frac{e^{0(1-ix)}}{1-ix} - \frac{e^{a(1-ix)}}{1-ix}\right) - \lim_{b\rightarrow \infty}\left(\frac{e^{-b(ix+1)}}{ix+1} - \frac{e^{0(ix+1)}}{ix+1}\right)\right] \\
+   &=& \frac{1}{2\pi} \left[\frac{1}{1-ix} + \frac{1}{ix+1}\right] \\
+   &=& \frac{1}{2\pi} \left(\frac{ix+1+1-ix}{(1-ix)(1+ix)}\right) \\
+   &=& \frac{1}{2\pi} \left(\frac{2}{ix+1-i^2 x^2 -ix}\right) \\
+   &=& \frac{1}{\pi} \left(\frac{1}{1 -(\sqrt{-1})^2 x^2}\right) \\
+   &=& \frac{1}{\pi}\left(\frac{1}{1 + x^2}\right).
+\end{eqnarray*}
+
+\noindent \textbf{Ejercicio 10 -- pág. 403}\\
+
+Sea la función de densidad $f(x) = (1/2) e^{-|x|}$ con $-\infty < x < \infty$.\\
+
+\noindent \textbf{a)} Para poder determinar la media y la varianza de la función, se calcula la función generadora de momentos como sigue:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  M(t) &=& \int^\infty_{-\infty} e^{tx} \left(\frac{1}{2} e^{-|x|}\right) dx \\
+   &=& \frac{1}{2} \left[\int^0_{-\infty} e^{-(-x)}e^{tx} dx + \int^\infty_0 e^{-x}e^{tx} dx\right] \\
+   &=& \frac{1}{2} \left[\int^0_{-\infty} e^{x(1+t)} dx + \int^\infty_0 e^{-x(1-t)} dx\right] \\
+   &=& \frac{1}{2} \left[\lim_{a\rightarrow - \infty} \left.\frac{e^{x(t+1)}}{t+1}\right|_0^a - \lim_{b\rightarrow \infty} \left.\frac{e^{-x(1-t)}}{1-t}\right|_0^b \right] \\
+   &=& \frac{1}{2} \left[\lim_{a\rightarrow - \infty} \left(\frac{e^{0(t+1)}}{t+1} - \frac{e^{a(t+1)}}{t+1}\right) - \lim_{b\rightarrow \infty} \left(\frac{e^{-b(1-t)}}{1-t} - \frac{e^{-0(1-t)}}{1-t}\right) \right] \\
+   &=& \frac{1}{2} \left[\frac{1}{t+1} + \frac{1}{1+t}\right] \\
+   &=& \frac{1}{2} \left[\frac{1-t+t+1}{(t+1)(1-t)}\right] \\
+   &=& \frac{1}{2} \left[\frac{2}{t-t^2+1-t}\right] \\
+   &=& \frac{1}{1-t^2},
+\end{eqnarray*}
+\noindent luego, por definición:
+\begin{equation*}
+  M(t) = 1 + \mu t + \mu_2^{\prime} \frac{t^2}{2!} + \ldots + \mu_r^{\prime} \frac{t^r}{r!} + \ldots,
+\end{equation*}
+\begin{equation*}
+  \mu_r^{\prime} = \left.\frac{d^r}{dt^r} M(t)\right|_{t=0},
+\end{equation*}
+\noindent de donde se sabe que: $\mu_1^{\prime} = \mu$ y $\mu_2 = \mu_2^{\prime} - \mu^2 = \sigma^2$. Entonces:
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mu_1^{\prime} &=& \left.\frac{(1-t^2)(0) - 1(-2t)}{(1-t^2)^2}\right|_{t=0} \\
+   &=& \left.\frac{2t}{(1-t^2)^2} \right|_{t=0} \\
+   &=& 0 = \mu,
+\end{eqnarray*}
+\begin{eqnarray*}
+% \nonumber to remove numbering (before each equation)
+  \mu_2^{\prime} &=& \left.\frac{(1-t^2)^2(2) -2t(2(1-t^2)(-2t))}{(1-t^2)^4}\right|_{t=0} \\
+   &=& \left.\frac{(1-0^2)^2(2) -2(0)(2(1-0^2)(-2(0)))}{(1-0^2)^4}\right|_{t=0} \\
+   &=& 2,
+\end{eqnarray*}
+\begin{equation*}
+  \mu_2 = 2 - 0^2 = 2 = \sigma^2,
+\end{equation*}
+\noindent es decir, la media es igual a cero y la varianza a dos.\\
+
+\noindent \textbf{b)} Por definición, la función generadora para $X_1$ es $g(t) = M(t)$, para $S_n$ es $g_n(t) = (g(t))^n$, para $S_n^*$ esta dada por $g_n^* (t) = (g(t/\sqrt{n}))^n$. Luego:
+\begin{equation*}
+  g(t) = \frac{1}{1-t^2},
+\end{equation*}
+\begin{equation*}
+  g_n(t) = \left(\frac{1}{1-t^2}\right)^n = \frac{1}{(1-t^2)^n},
+\end{equation*}
+\begin{equation*}
+  g_n^*(t) = \left(\frac{1}{1-(\frac{t}{\sqrt{n}})^2}\right)^n = \left(\frac{1}{1-\frac{t^2}{n}}\right)^n = \left(\frac{n}{n-t^2}\right)^n,
+\end{equation*}
+
+\bibliography{MiBiblio}
+\bibliographystyle{abbrv}
+
+\end{document} 
