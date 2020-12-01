@@ -1,0 +1,229 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=violet,
+    linkcolor=red,
+    urlcolor=blue}
+\spanishdecimal{.}
+
+\renewcommand{\spanishtablename}{Cuadro}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 13}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 13 \\ Ley de los grandes números}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{01/12/2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Conceptos}
+
+Hay diferentes formas para definir la probabilidad de un suceso, una es aproximar la probabilidad de un evento por frecuencias relativas, el cual consiste en realizar u observar un procedimiento un gran número de veces y contar las ocasiones en las que un suceso (suponga $A$) ocurrió en realidad. Con base en esos resultados, la probabilidad de que ocurra $A$ se estima de la siguiente forma \cite{Triola2004}:
+\begin{equation*}
+  P(A) = \frac{\text{número de veces que ocurre } A}{\text{número de veces que se repitió el ensayo}},
+\end{equation*}
+
+Al calcular probabilidades con el método de frecuencias relativas descrito antes, se obtiene un \emph{estimado} en lugar de un valor exacto. Conforme el número total de observaciones se \emph{incrementa}, los estimados correspondientes tienden a acercarse a la probabilidad real. Tal propiedad se enuncia en forma de teorema, al que se conoce comúnmente como la \emph{ley de los grandes números}.\\
+
+\noindent \textbf{Ley de los grandes números}: conforme un procedimiento se repite una y otra vez, la probabilidad de frecuencias relativas de un suceso, tiende a aproximarse a la probabilidad real.\\
+
+La ley de los grandes números indica que los estimados por frecuencias relativas tienen a mejorar si se hacen más observaciones del experimento, por ejemplo, si se realiza una encuesta para sacar a la venta un nuevo producto al mercado sólo a una docena de personas, las cuales fueron seleccionadas al azar, posiblemente se obtengan resultados erróneos en cuanto a las preferencias hacia ese producto, pero si se aplica a una gran cantidad de personas (miles) seleccionadas al azar, es posible determinar las preferencias reales de la población con dicho producto.\\
+
+Así, sea $X_1$, $X_2,\ldots,$ $X_n$ una mestra aleatoria de una distribución con media $\mu$ y varianza $\sigma^2 < \infty$, es fácil ver que $\bar{X}_n = (1/n) \sum^n_{i=1} X_i$ es un estimador consistente de $\mu$, esto debido a que se sabe que $\mathbb{E}[\bar{X}_n] = \mu$ y $\mathbb{V} [\bar{X}_n] = \sigma^2 /n$. Como $\bar{X}_n$ es insesgado para $\mu$ entonces se cumple que $\mathbb{V} [\bar{X}_n] \rightarrow 0$ cuando $n \rightarrow \infty$, por lo que se puede decir que $\bar{X}_n$ converge en probabilidad en $\mu$ \cite{Wackerly09}.\\
+
+Veamos un ejemplo para comprender mejor los conceptos anteriores, para esto, se suponga que se ha decidido lanzar un dado $n$ veces, considere $X:$ obtener el número $1$. Con la ayuda de la ley de los grandes números, obtendremos la probabilidad de que este evento ocurra. En la figura \ref{dado1} no se aprecia bien cuál es la frecuencia de obtener un $1$, sin embargo, se puede observar que entre más lanzamientos se realicen, la frecuencia parece tomar un valor constante, por lo que si se realizan más lanzamientos (a saber mil lanzamientos), parece ser que la frecuencia en la que aparece el $1$ es muy cercana al 16.67\% (ver figura \ref{dado}).
+\begin{figure}
+ \centering
+ \subfloat[Diez lanzamientos.]{
+   \label{f2a}
+    \includegraphics[width=0.45\textwidth]{Fig/dado1.png}}
+  \subfloat[Veinte lanzamientos.]{
+   \label{f2b}
+    \includegraphics[width=0.45\textwidth]{Fig/dado2.png}}
+ \caption{Frecuencia relativa de sacar un $1$ al lanzar varias veces un dado.}
+ \label{dado1}
+\end{figure}
+
+\begin{figure}[]
+\begin{center}
+\includegraphics[width=11 cm]{Fig/dado.png}
+\caption{Frecuencia relativa de sacar un $1$ al lanzar varias veces un dado.}\label{dado}
+\end{center}
+\end{figure}
+
+\section{Aplicación}
+
+Duque (2014) \nocite{Duque2014} indica en su investigación dos formas de asignar una probabilidad a un suceso, una basada en consideraciones de simetría y otra en las frecuencias relativas. Resalta que el juego de azar de la ruleta ejemplifica muy bien cuando se habla de simetría, pero, cómo se puede asegurar que la ruleta no presenta una inclinación (sesgo), ya que si la mesa está perfectamente equilibrada y nivelada, la probabilidad de que la bola caiga en un número determinado es $1/37$; sin embargo, esto no ocurrirá si la mesa está desequilibrada. Si un jugador descubre ese desequilibrio, entonces podría ganar varias veces, apostando al número con más observaciones (frecuencia observada). Uno de esos casos ocurrió en el casino de Montecarlo a principios del siglo XX.\\
+
+Un ingeniero escocés llamado William Jaggers examinó con mucho cuidado la forma en que la ruleta estaba construida, un desgaste imperceptible de una parte de la ruleta rompía la igualdad de la probabilidad de los distintos números. Por lo que, durante más de un mes, anotó los números que salían en una de las mesas del casino de Montecarlo, Jaggers observó que ciertos números parecían salir con una frecuencia anormal. Con esta idea, se analizarán el juego de azar \textbf{Melate}, en el cuál deberás elegir entre 6 y 10 (del 1 al 56) por casilla. A parte, por una cantidad adicional de dinero se puede agregar la modalidad de Revancha y obtener una segunda oportunidad de jugar con tus mismos 6 ó 10 números elegidos en Melate. Y si eso no es suficiente, por otra cantidad de dinero más, tienes una tercera oportunidad para tus números con la modalidad de Revanchita.\\
+
+Este juego de azar se realiza todos los miércoles y domingos después del cierre de ventas que se ejecuta de manera automática a las $21$ horas, la urna de Melate elegirá de manera \emph{aleatoria} \textbf{siete} esferas con los números ganadores: de los cuales, los primeros seis números seleccionados son llamados números naturales y el séptimo es el número adicional. Para poder ganar la bolsa acumulada, los números del boleto deberán coincidir con un mínimo de dos números naturales. Si más números coinciden, mayor será el premio. De esta forma, se puede intuir, que como la selección de los números ganadores es aleatoria, entonces todos los números tienen la misma posibilidad de ser elegidos en cada casilla.\\
+
+Se tiene una base de datos de 3410 concursos de Melate, por lo que se procede a analizar las frecuencias en las que los números fueron observados en las siete casillas. De esta forma, en el cuadro \ref{casilla1}, se puede observar las frecuencias relativas de los cinco números más observados en la casilla 1 del Melate, es decir, si se sigue este comportamiento, se podría decir que la probabilidad de obtener un número $1$ en la primer casilla es igual a $0.1273$, de obtener $2$ es $0.1147$, de obtener $3$ es $0.0977$, de obtener $4$ es $0.0856$ y de obtener $5$ es de $0.0809$. Este mismo análisis se puede hacer para las demás casillas (ver cuadros \ref{casilla2}, \ref{casilla3}, \ref{casilla4}, \ref{casilla5}, \ref{casilla6} y \ref{casilla7}). Así, con la ayuda de la ley de los grandes números, podemos elevar la probabilidad de ganar el Melate, ya que podríamos utilizar algunos de los números presentados en los cuadros antes mencionados.
+
+\begin{table}[]
+\begin{center}
+\caption{Números observados con más frecuencia en la casilla 1.}
+\begin{tabular}{ccc}
+\textbf{\begin{tabular}[c]{@{}c@{}}\#\\ observado\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ absoluta\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ relativa\end{tabular}} \\
+\hline
+\textbf{1}                                                      & 434                                                                    & 0.1273                                                                 \\
+\textbf{2}                                                      & 391                                                                    & 0.1147                                                                 \\
+\textbf{3}                                                      & 333                                                                    & 0.0977                                                                 \\
+\textbf{4}                                                      & 292                                                                    & 0.0856                                                                 \\
+\textbf{5}                                                      & 276                                                                    & 0.0809
+\end{tabular}
+\label{casilla1}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Números observados con más frecuencia en la casilla 2.}
+\begin{tabular}{ccc}
+\textbf{\begin{tabular}[c]{@{}c@{}}\#\\ observado\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ absoluta\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ relativa\end{tabular}} \\
+\hline
+\textbf{8}                                                      & 198                                                                    & 0.0581                                                                 \\
+\textbf{12}                                                      & 198                                                                    & 0.0581                                                                 \\
+\textbf{11}                                                      & 186                                                                    & 0.0545                                                                 \\
+\textbf{13}                                                      & 175                                                                    & 0.0513                                                                 \\
+\textbf{15}                                                      & 169                                                                    & 0.0496
+\end{tabular}
+\label{casilla2}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Números observados con más frecuencia en la casilla 3.}
+\begin{tabular}{ccc}
+\textbf{\begin{tabular}[c]{@{}c@{}}\#\\ observado\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ absoluta\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ relativa\end{tabular}} \\
+\hline
+\textbf{20}                                                      & 163                                                                    & 0.0478                                                                 \\
+\textbf{17}                                                      & 161                                                                    & 0.0472                                                                 \\
+\textbf{18}                                                      & 156                                                                    & 0.0457                                                                 \\
+\textbf{19}                                                      & 152                                                                    & 0.0446                                                                 \\
+\textbf{14}                                                      & 149                                                                    & 0.0437
+\end{tabular}
+\label{casilla3}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Números observados con más frecuencia en la casilla 4.}
+\begin{tabular}{ccc}
+\textbf{\begin{tabular}[c]{@{}c@{}}\#\\ observado\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ absoluta\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ relativa\end{tabular}} \\
+\hline
+\textbf{25}                                                      & 159                                                                    & 0.0466                                                                 \\
+\textbf{28}                                                      & 158                                                                    & 0.0463                                                                 \\
+\textbf{27}                                                      & 149                                                                    & 0.0437                                                                 \\
+\textbf{24}                                                      & 143                                                                    & 0.0419                                                                 \\
+\textbf{32}                                                      & 140                                                                    & 0.0411
+\end{tabular}
+\label{casilla4}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Números observados con más frecuencia en la casilla 5.}
+\begin{tabular}{ccc}
+\textbf{\begin{tabular}[c]{@{}c@{}}\#\\ observado\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ absoluta\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ relativa\end{tabular}} \\
+\hline
+\textbf{37}                                                      & 183                                                                    & 0.0537                                                                 \\
+\textbf{32}                                                      & 156                                                                    & 0.0457                                                                 \\
+\textbf{30}                                                      & 152                                                                    & 0.0446                                                                 \\
+\textbf{38}                                                      & 151                                                                    & 0.0443                                                                 \\
+\textbf{34}                                                      & 148                                                                    & 0.0434
+\end{tabular}
+\label{casilla5}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Números observados con más frecuencia en la casilla 6.}
+\begin{tabular}{ccc}
+\textbf{\begin{tabular}[c]{@{}c@{}}\#\\ observado\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ absoluta\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ relativa\end{tabular}} \\
+\hline
+\textbf{44}                                                      & 211                                                                    & 0.0619                                                                 \\
+\textbf{39}                                                      & 202                                                                    & 0.0592                                                                 \\
+\textbf{43}                                                      & 190                                                                    & 0.0557                                                                 \\
+\textbf{42}                                                      & 166                                                                    & 0.0487                                                                 \\
+\textbf{38}                                                      & 162                                                                    & 0.0475
+\end{tabular}
+\label{casilla6}
+\end{center}
+\end{table}
+
+\begin{table}[]
+\begin{center}
+\caption{Números observados con más frecuencia en la casilla 7.}
+\begin{tabular}{ccc}
+\textbf{\begin{tabular}[c]{@{}c@{}}\#\\ observado\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ absoluta\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Frecuencia\\ relativa\end{tabular}} \\
+\hline
+\textbf{9}                                                      & 88                                                                    & 0.0258                                                                 \\
+\textbf{11}                                                      & 87                                                                    & 0.0255                                                                 \\
+\textbf{28}                                                      & 86                                                                    & 0.0252                                                                 \\
+\textbf{26}                                                      & 85                                                                    & 0.0252                                                                 \\
+\textbf{34}                                                      & 81                                                                    & 0.0238
+\end{tabular}
+\label{casilla7}
+\end{center}
+\end{table}
+
+
+
+\bibliography{MiBiblio}
+\bibliographystyle{abbrv}
+
+\end{document} 
