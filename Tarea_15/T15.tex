@@ -1,0 +1,86 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=violet,
+    linkcolor=red,
+    urlcolor=blue}
+\spanishdecimal{.}
+
+\renewcommand{\spanishtablename}{Cuadro}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 15}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 15 \\ Propuestas proyecto}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{15/12/2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Nodos conectados}
+
+En mi investigación de tesis, se esta analizando una variante del problema de enrutamiento de vehículos, en el cuál, los vehículos salen del depósito inicial y deben moverse a algún nodo en donde se requiera satisfacer la demanda de algún cliente, para nuestro caso el primer movimiento es hacia algún hotel, por lo que se desea analizar la frecuencia/probabilidad con la que los nodos asignados a los \emph{hoteles} están conectados en la ruta de algún vehículo o no lo están en las diferentes soluciones encontradas, ya que esto permitirá ver la pertinencia de analizar o no un modelo en dónde los hoteles sean tratados como depósitos iniciales.
+
+\section{Nodos transbordo}
+
+En la literatura podemos encontrar que el uso de nodos \emph{transbordo} mejora en varias ocasiones las soluciones óptimas encontradas en problemas de enrutamiento de vehículos con recogida y entrega, por lo que se desea saber si en la modelación típica es conveniente o no agregar este tipo de restricción al problema, así, al analizar algunas instancias modificando algunos parámetros, se espera observar cuál es el comportamiento en la solución (mejora o empeora), al implementar nodos transbordo en la modelación.
+
+\section{Diseño de experimentos para hornear galletas}
+
+Un negocio pequeño dedicado a la venta de galletas de mantequilla, desea saber los niveles óptimos para hornear sus galletas, ya que ha decidido innovar y probar nuevos ingredientes y así poder ofertar otro tipo de producto, algunos factores que se suponen afecta la calidad de sus galletas son: el tiempo de horneado, el tipo de horno a utilizar, el tipo de harina (trigo o almendra), la temperatura del horno, el grosor de las galletas. Por lo que es necesario determinar mediante un diseño de experimentos, qué factores son los que afectan más al proceso de horneado de un tipo de galleta y el nivel requerido para cada uno de ellos.
+
+\section{Cartas de control para analizar los objetivos de calidad de una empresa}
+
+Un ingeniero de calidad en una empresa cuenta con una base de datos, los cuales miden los objetivos de calidad por mes durante el año como lo es el nivel de inventario, la producción de los productos, nivel de desperdicios generados, la cantidad de clientes no conformes, y desea establecer, mediante el uso de cartas de control, los límites para que cada uno de estos objetivos se cumplan con lo establecido por la empresa.
+
+%\bibliography{MiBiblio}
+%\bibliographystyle{abbrv}
+
+\end{document} 
