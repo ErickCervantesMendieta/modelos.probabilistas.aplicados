@@ -1,0 +1,89 @@
+\documentclass[spanish,notitlepage,letterpaper, 12pt]{article} % para articulo en castellano
+\usepackage[ansinew]{inputenc} % Acepta caracteres en castellano
+\usepackage[spanish]{babel} % silabea palabras castellanas
+\usepackage{url}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}      % See geometry.pdf to learn the layout options.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{epstopdf}
+\usepackage{fancyhdr} % encabezados y pies de pg
+\usepackage{pgf,pgfarrows,pgfnodes}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=violet,
+    linkcolor=red,
+    urlcolor=blue}
+\spanishdecimal{.}
+
+\renewcommand{\spanishtablename}{Cuadro}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+\pagestyle{fancy}
+\chead{\bfseries Tarea 16}
+\lhead{} % si se omite coloca el nombre de la seccion
+\rhead{ }
+\lfoot{\it }
+\cfoot{}
+\rfoot{\thepage}
+
+\voffset = -0.25in
+\textheight = 9.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\title{Tarea 16 \\ Retroalimentación a propuestas de proyectos}
+
+\author{
+\textbf{Erick Cervantes Mendieta} \\
+\vspace{0.5cm}
+\textnormal{Matrícula: 2032430}\\
+\textit{Modelos Probabilistas Aplicados}}
+\date{15/12/2020}
+
+\maketitle
+
+%------------------------------------------------
+
+\section{Alberto Benavides - Pronosticabilidad de una serie de tiempo a partir de otra}
+
+\noindent \textbf{Propuesta:} También inspirado por el tema de tesis que actualmente trabajo, otra propuestaes pronosticar una serie de tiempo a partir de otra, particularmente pronosticar la serie de tiempod e consultas de una enfermedad respiratoria a partir de series de tiempo de algún contaminante del aire, mediante la prueba de causalidad de Wiener-Granger que implica aproximaciones autorregresivas.\\
+
+\noindent \textbf{Retroalimentación:} La idea me parece muy buena, en el sentido de poder encontrar alguna causa que pudiera atribuirse a una enfermedad, creo que en la redacción ya se está dando por hecho que habrá dicha relación y que por eso se podrá realizar un pronóstico con la téncnica mencionada.
+
+
+\section{Oscar Alejandro - Six Sigma}
+
+\noindent \textbf{Propuesta:} The third proposal is an analysis of capacity and tolerance indices and Six Sigma metrics to measure if a manufacturing process has been fulfilling its specifications. Analyzing these capacity indices will allow one to know if the process is centered with respect to the specifications and therefore give recommendations to improve it. Also, with the design of tolerance limits can be defined the specifications of upper and lower values of to the nominal one that components of the product should have.\\
+		
+\noindent \textbf{Retroalimentación:} La idea es bastante buena, en el sentido de que se puede empezar a hacer un análisis desde una sigma e ir viendo como se comporta la capacidad de prodcucción de la empresa, ya que a veces si el proceso no esta a cero tolerancia, la herramienta del seis sigma no sirve de mucho, por todos los ajustes que deben realizarse antes.
+
+\section{Joaquín Arturo - Manejo de tickets y tiempos de respuesta}
+
+\noindent \textbf{Propuesta:} Una empresa consultora quiere expandir su base de clientes, se tiene una base de datos con clientes actuales donde se puede extraer la media de del tiempo de respuesta a los tickets solicitados por fechas, utilizando el teorema central del límite trataremos de calcular qué personal se requerirá para atender el triple de los clientes que ahora tiene. Además de este objetivo, se propone saber cómo se distribuyen la horas de creación un ticket, su media, varianza y usar pruebas estadísticas para comprobar su tipo de distribución.\\
+
+\noindent \textbf{Retroalimentación:} Creo que como primer paso estaría genial encontrar la distribución de expedición de tickets, para que con base en eso se puedan simular "muchos" mas datos y asi se pueda aprovechar más el resultado obtenido con el teorema de límite central, aunque hace falta explicar un poco más como se piensa incrementar el triple de sus clientes (¿qué herramienta?).
+
+%\bibliography{MiBiblio}
+%\bibliographystyle{abbrv}
+
+\end{document} 
